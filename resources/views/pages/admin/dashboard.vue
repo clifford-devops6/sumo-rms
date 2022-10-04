@@ -1,4 +1,9 @@
 <template layout="admin">
+    <Head>
+        <title>Admin</title>
+        <meta head-key="description" name="description" content="This is the default description" />
+
+    </Head>
     <!-- Buttons-->
     <div>
         <h2>Buttons</h2>
@@ -124,10 +129,44 @@
 
 
     </div>
+    <div class="mt-5">
+        <h6>Form inputs customization</h6>
+       <div class="mt-5">
+           <label for="form-input" class="sumo-label">Sample Input:</label>
+           <input type="text" class="sumo-input" id="form-input" placeholder="Sumo placeholder text"/>
+       </div>
+        <div class="mt-5">
+            <label for="form-email" class="sumo-label">Sample Email:</label>
+            <input type="email" class="sumo-input" id="form-email" placeholder="email@gmail.com"/>
+            <div class="mt-3 text-red-800 text-sm">
+                <span><span class="mr-2"><i class="fal fa-exclamation-circle"></i></span>Input Email is required. Sample error</span>
+            </div>
+        </div>
+        <div class="mt-5">
+
+            <label for="message" class="sumo-label">Your message</label>
+            <textarea id="message" rows="4" class="sumo-input" placeholder="Leave a comment..."></textarea>
+
+        </div>
+
+        <div class="mt-5">
+            <h1>Rich Text Editor</h1>
+            <editor
+                :init="{
+           plugins: 'lists link image table code help wordcount',
+            selector: 'textarea',  // change this value according to your HTML
+            min_height: 400
+          }"
+            />
+        </div>
+
+    </div>
 </template>
 
 <script setup lang="ts">
-import ResourceBlock from '@/views/components/resource-block.vue'
+import { Head } from '@inertiajs/inertia-vue3'
+import Editor from "@tinymce/tinymce-vue";
+
 
 </script>
 
