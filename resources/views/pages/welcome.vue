@@ -8,7 +8,7 @@ import {Link} from "@inertiajs/inertia-vue3";
             <div class="flex mt-5">
                 <ul class="flex gap-5">
                     <li class="text-sky-800 font-semibold hover:underline">
-                        <Link href="/">Home</Link>
+                        <Link href="/">Unit Manager</Link>
                     </li>
                     <li class="text-sky-800 font-semibold hover:underline">
                         <Link href="/admin/dashboard">Admin</Link>
@@ -17,7 +17,7 @@ import {Link} from "@inertiajs/inertia-vue3";
                         <Link href="#">Tenant</Link>
                     </li>
                     <li class="text-sky-800 font-semibold hover:underline">
-                        <Link href="#">Landlord</Link>
+                        <Link href="#">Property Owner</Link>
                     </li>
                     <li class="text-sky-800 font-semibold hover:underline">
                         <Link href="#">Manager</Link>

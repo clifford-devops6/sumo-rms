@@ -15,7 +15,7 @@ import {Link} from "@inertiajs/inertia-vue3";
                     <span class="text-lg self-center"><i class="fas fa-bars"></i></span>
                 </div>
 
-                <h3 class="font-medium ml-5 self-center">SUMO RMS</h3>
+                <h3 class="font-medium ml-5 self-center">SUMO RMS | <span class="capitalize text-sky-800">{{$page.props.auth.name}}</span></h3>
             </div>
 
 
@@ -28,7 +28,7 @@ import {Link} from "@inertiajs/inertia-vue3";
                 </div>
                 <Dropdown>
                     <template #default>
-                        <div class="flex place-content-center font-medium rounded-fulltext-sm py-2 px-4 bg-sky-800
+                        <div class="flex place-content-center font-medium rounded-full text-sm py-2 px-4 bg-sky-800
                         hover:bg-sky-600 text-white rounded-full w-10 h-10">
                             <span class="self-center"><i class="fal fa-user"></i></span>
                         </div>
@@ -37,23 +37,24 @@ import {Link} from "@inertiajs/inertia-vue3";
 
                     </template>
                     <template #menu>
-                        <div class="py-1 divide-y font-semibold ">
+                        <div class=" divide-y font-semibold rounded overflow-hidden">
                             <MenuItem v-slot="{ active }" class="py-5 text-md hover:text-sky-500">
                                 <Link href="/" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
                                     <span class="mr-3"><i class="fal fa-home"></i></span>Home</Link>
                             </MenuItem>
                             <MenuItem v-slot="{ active }" class="py-5 text-md hover:text-sky-500">
-                                <a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
-                                    <span class="mr-3"><i class="fal fa-user"></i></span>Profile</a>
+                                <Link href="/admin/profile/settings" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
+                                    <span class="mr-3"><i class="fal fa-user"></i></span>Profile</Link>
                             </MenuItem>
                             <MenuItem v-slot="{ active }"  class="py-5 text-md hover:text-sky-500">
-                                <a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
-                                    <span class="mr-3"><i class="fal fa-cog"></i></span>Account Setting</a>
+                                <Link href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
+                                    <span class="mr-3"><i class="fal fa-cog"></i></span>Settings</Link>
                             </MenuItem>
 
-                            <MenuItem v-slot="{ active }"  class="py-5 text-md hover:text-sky-500">
-                                <a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
-                                    <span class="mr-3"><i class="fal fa-lock"></i></span>Log Out</a>
+                            <MenuItem   class="border-t mb-0">
+                                <Link href="/admin/auth/logout"
+                                method="post" as="button" class="w-full bg-sky-800 py-4 text-white hover:bg-sky-600">
+                                    <span class="mr-3"><i class="fal fa-lock"></i></span>Log Out</Link>
                             </MenuItem>
                         </div>
                     </template>
@@ -167,10 +168,10 @@ import {Link} from "@inertiajs/inertia-vue3";
                             <p class="text-slate-600"><span class="mr-3 text-sky-800"><i class="fal fa-cog"></i></span>Settings</p>
                         </a>
                         <hr class="my-2">
-                        <a href="#"
+                        <Link href="/admin/profile/settings"
                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100">
-                            <p class="text-slate-600"><span class="mr-3 text-sky-800"><i class="fal fa-user"></i></span>Account</p>
-                        </a>
+                            <p class="text-slate-600"><span class="mr-3 text-sky-800"><i class="fal fa-user"></i></span>Profile</p>
+                        </Link>
 
                     </div>
 

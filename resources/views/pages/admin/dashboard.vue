@@ -167,6 +167,9 @@
 import { Head } from '@inertiajs/inertia-vue3'
 import Editor from "@tinymce/tinymce-vue";
 
+defineProps({
+    user:Object,
+})
 
 </script>
 
