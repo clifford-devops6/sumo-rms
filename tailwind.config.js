@@ -11,7 +11,8 @@ module.exports = {
             fontFamily: {
                 'Spartan': ['"League Spartan"', 'sans-serif'],
                 'Roboto': ['"Roboto Condensed"', 'sans-serif'],
-            }
+            },
+
         },
 	},
 	plugins: [

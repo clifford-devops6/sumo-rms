@@ -4,9 +4,11 @@ use App\Http\Controllers\Auth\Admin\AdminAuthController;
 use App\Http\Controllers\Auth\Admin\AuthenticatedAdmin;
 use App\Http\Controllers\Auth\Admin\AdminPasswordReset;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\Manager\ManagerAuthController;
+use App\Http\Controllers\Auth\Manager\AuthenticatedManager;
 
 // Auth routes. Admin Auths. Remember to add 'middleware'=>['throttle:login']
-Route::group([], function(){
+Route::group(['middleware'=>['guest:manager']], function(){
     Route::get('/admin/auth/login',[AdminAuthController::class, 'login'])->name('admin.login');
     Route::post('admin/auth/authenticate',[AdminAuthController::class, 'authenticate']);
     Route::get('/admin/auth/register',[AdminAuthController::class, 'register']);
@@ -19,6 +21,20 @@ Route::group([], function(){
 
 });
 
+
+
 Route::group(['middleware'=>['auth']], function (){
     Route::post('/admin/auth/logout',[AuthenticatedAdmin::class, 'destroy']);
+});
+
+// Auth routes. Manager Auths. Remember to add 'middleware'=>['throttle:login']
+Route::group([], function (){
+    Route::get('/manager/auth/register',[ManagerAuthController::class, 'register']);
+    Route::post('/manager/auth/create',[ManagerAuthController::class, 'create']);
+    Route::get('/manager/auth/login',[ManagerAuthController::class, 'login'])->name('manager.login');
+    Route::post('manager/auth/authenticate',[ManagerAuthController::class, 'authenticate']);
+});
+
+Route::group(['middleware'=>['auth:manager']], function (){
+    Route::post('/manager/auth/logout',[AuthenticatedManager::class, 'destroy']);
 });
