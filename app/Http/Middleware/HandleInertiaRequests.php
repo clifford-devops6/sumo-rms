@@ -56,6 +56,8 @@ class HandleInertiaRequests extends Middleware
             	'laravel' => \Illuminate\Foundation\Application::VERSION
             ],
             'auth' =>$auth,
+            'status' => $request->session()->get('status')?$request->session()->get('status'):null,
+
         ]);
     }
 }

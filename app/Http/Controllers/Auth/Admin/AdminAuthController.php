@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -63,6 +63,8 @@ class AdminAuthController extends Controller
         ])->onlyInput('email');
 
     }
+
+
 
 
 }

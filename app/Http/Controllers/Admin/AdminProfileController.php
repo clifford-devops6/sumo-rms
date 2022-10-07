@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class AdminProfileController extends Controller
@@ -16,7 +19,9 @@ class AdminProfileController extends Controller
     public function index()
     {
         //
-        return  inertia::render('/admin/profile/settings');
+        $user=Auth::user()->only('id','email','name','last_name');
+
+        return  inertia::render('/admin/profile/settings', compact('user'));
     }
 
     /**
@@ -72,6 +77,22 @@ class AdminProfileController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $user=User::findOrFail($id);
+
+        $validated=$request->validate([
+            'name'=>['required', 'string', 'max:255'],
+            'last_name'=>['required', 'string', 'max:255'],
+        ]);
+
+        $user->update([
+            'name'=>$validated['name'],
+            'last_name'=>$validated['last_name']
+        ]);
+
+        return redirect()->back()->with('status','Profile Successfully Updated');
+
+
+
     }
 
     /**
@@ -83,5 +104,17 @@ class AdminProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function change (Request $request, $id){
+        $user=User::findOrFail($id);
+        $validated=$request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        $user->update([
+            'password'=>Hash::make($validated['password'])
+        ]);
+
+        return redirect()->back()->with('status','Password Successfully Updated');
     }
 }
