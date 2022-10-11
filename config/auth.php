@@ -44,6 +44,18 @@ return [
             'driver' => 'session',
             'provider' => 'managers',
         ],
+        'caretaker' => [
+            'driver' => 'session',
+            'provider' => 'caretakers',
+        ],
+        'tenant' => [
+            'driver' => 'session',
+            'provider' => 'tenants',
+        ],
+        'staff' => [
+            'driver' => 'session',
+            'provider' => 'staffs',
+        ],
     ],
 
     /*
@@ -72,6 +84,18 @@ return [
         'managers' => [
             'driver' => 'eloquent',
             'model' => App\Models\Manager::class,
+        ],
+        'caretakers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Caretaker::class,
+        ],
+        'tenants' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Tenant::class,
+        ],
+        'staffs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Staff::class,
         ],
 
         // 'users' => [
@@ -106,6 +130,24 @@ return [
         ],
         'managers' => [
             'provider' => 'managers',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'caretakers' => [
+            'provider' => 'caretakers',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'tenants' => [
+            'provider' => 'tenants',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'staffs' => [
+            'provider' => 'staffs',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

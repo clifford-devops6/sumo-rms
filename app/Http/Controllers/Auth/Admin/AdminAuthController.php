@@ -12,11 +12,6 @@ use Spatie\Permission\Models\Role;
 
 class AdminAuthController extends Controller
 {
-    //
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
 
 
     public function login(){

@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         \App\Models\Manager::factory(10)->create();
+        \App\Models\Caretaker::factory(10)->create();
     }
 }

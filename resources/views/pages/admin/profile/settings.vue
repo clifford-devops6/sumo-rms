@@ -12,6 +12,7 @@
                 <h6 class="capitalize">{{$page.props.auth.name}} {{$page.props.auth.last_name}}</h6>
                 <p>Role: <span class="text-sky-800">{{$page.props.auth.role}}</span></p>
                 <p>Email: <span class="text-sky-800">{{$page.props.auth.email}}</span></p>
+
             </div>
         </div>
         <div class="lg:col-span-3 grid">
@@ -57,9 +58,9 @@
                     <form @submit.prevent="pass.patch('/admin/profile/password/'+ user.id)">
                         <div class="grid lg:grid-cols-2 gap-3">
                             <div class="mt-3">
-                                <label for="first_name" class="sumo-label"><span class="mr-2 text-sky-800"><i class="fal fa-lock"></i></span>Password:</label>
-                                <input type="password" class="sumo-input" id="first_name" placeholder="Enter your password" required v-model="pass.password" />
-                                <div v-if="pass.errors.password" class="mt-3 text-red-800 text-sm">
+                                <label for="password" class="sumo-label"><span class="mr-2 text-sky-800"><i class="fal fa-lock"></i></span>Password:</label>
+                                <input type="password" class="sumo-input" id="password" placeholder="Enter your password" required v-model="pass.password" />
+                                <div v-if="pass.errors.password" class="mt-3 text-red-password800 text-sm">
                                     <span><span><i class="fal fa-exclamation-circle"></i></span>{{ pass.errors.password }}</span>
                                 </div>
                             </div>
@@ -95,6 +96,7 @@ let pass=useForm({
     password:'',
     password_confirmation:'',
 })
+
 
 
 

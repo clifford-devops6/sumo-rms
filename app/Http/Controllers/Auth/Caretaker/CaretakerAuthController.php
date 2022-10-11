@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth\Manager;
+namespace App\Http\Controllers\Auth\Caretaker;
 
 use App\Http\Controllers\Controller;
-use App\Models\Manager;
+use App\Models\Caretaker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,15 +11,22 @@ use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
 
-class ManagerAuthController extends Controller
+class CaretakerAuthController extends Controller
 {
 
-    //Registration page display
-    public function register(){
 
-        return inertia::render('manager/auth/register');
+    //display caretaker registration page
+
+    public function register(){
+        return inertia::render('caretaker/auth/register');
     }
-//create manager user
+
+    //display caretaker login page
+    public function  login(){
+
+        return inertia::render('caretaker/auth/login');
+    }
+    //create caretaker user
     public function create(Request $request){
 
         $validated=$request->validate([
@@ -30,26 +37,22 @@ class ManagerAuthController extends Controller
             'cellphone'=>['required', 'string', 'max:13'],
         ]);
 
-        $manager=Manager::create([
+        $caretaker=Caretaker::create([
             'name'=>$validated['name'],
             'last_name'=>$validated['last_name'],
             'email'=>$validated['email'],
             'cellphone'=>$validated['cellphone'],
             'password'=>Hash::make($validated['password']),
-            'manager_id'=>Str::upper(Str::random(6))
+            'caretaker_id'=>Str::upper(Str::random(6))
         ]);
-        $role=Role::findOrFail(2);
-        $manager->assignRole($role);
+        $role=Role::findOrFail(3);
+        $caretaker->assignRole($role);
 
-        Auth::guard('manager')->login($manager);
-        return redirect('/manager/home');
+        Auth::guard('caretaker')->login($caretaker);
+        return redirect('/caretaker/public');
     }
 
-    public function  login(){
-
-       return inertia::render('/manager/auth/login');
-    }
-
+    //login caretaker here
     public function authenticate(Request $request){
 
         $credentials = $request->validate([
@@ -57,10 +60,10 @@ class ManagerAuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::guard('manager')->attempt($credentials)) {
+        if (Auth::guard('caretaker')->attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/manager/home');
+            return redirect()->intended('/caretaker/public');
         }
 
         return back()->withErrors([

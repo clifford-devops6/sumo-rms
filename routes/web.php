@@ -9,10 +9,16 @@ use  \App\Http\Controllers\Admin\AdminController;
 use  \App\Http\Controllers\Admin\AdminProfileController;
 
 /*
- * Super Admin routes goes to this section
+ * Manager routes goes to this section
 */
 
 use  \App\Http\Controllers\Manager\ManagerController;
+
+/*
+ * Caretaker routes goes to this section
+*/
+
+use  App\Http\Controllers\Caretaker\CaretakerController;
 
 Route::get('/', function () {
     return inertia('welcome');
@@ -24,11 +30,17 @@ Route::group(['middleware'=>['auth']],function (){
     Route::resource('/admin/dashboard',AdminController::class);
 
 });
-
+//manager routes
 Route::group(['middleware'=>['auth:manager']], function (){
     Route::resource('/manager/home', ManagerController::class);
 });
 
+//caretaker routes
+Route::group(['middleware'=>['auth:caretaker']], function (){
+    Route::resource('/caretaker/public', CaretakerController::class);
+});
+
 //Auth routes
 require __DIR__.'/auth.php';
+require __DIR__.'/tenant.php';
 

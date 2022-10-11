@@ -6,10 +6,11 @@
         <!---Registration form-->
         <div class="lg:bg-white md:bg-white bg-gradient-to-b from-sky-50 to-sky-400  flex place-content-center w-full lg:col-span-1">
             <div class="self-center border p-8 rounded-xl bg-white shadow-xl w-96">
+
                 <h6 class="font-bold text-lg text-center text-sky-800">Login here</h6>
-                <h6 class="text-xl text-center text-gray-800 mt-5">Property manager</h6>
+                <h6 class="text-xl text-center text-gray-800 mt-5">Unit manager</h6>
                 <div class="mt-8">
-                    <form @submit.prevent="form.post('/manager/auth/authenticate')">
+                    <form @submit.prevent="form.post('/caretaker/auth/authenticate')">
 
                         <div class="mt-7">
                             <label for="form-input" class="sumo-label"><span class="mr-2 text-sky-800"><i class="fal fa-envelope"></i></span>Email:</label>
@@ -32,8 +33,8 @@
 
                         <div class="flex mt-5 ">
                             <p class="font-medium text-center">
-                                <Link href="/manager/auth/forgot-password" title="Password Reset" class="hover:text-sky-800">Forgot password</Link> |
-                                <Link href="/manager/auth/register" title="Register" class="hover:text-sky-800">Register</Link>
+                                <Link href="/caretaker/auth/forgot-password" title="Password Reset" class="hover:text-sky-800">Forgot password</Link> |
+                                <Link href="/caretaker/auth/register" title="Register" class="hover:text-sky-800">Register</Link>
                             </p>
 
                         </div>
@@ -43,7 +44,7 @@
 
         </div>
         <div class="hidden lg:block lg:col-span-1">
-            <img src="/images/property.jpg" alt="Sample Property Image" class="h-screen w-auto object-cover">
+            <img src="/images/kitchen.jpg" alt="Sample Property Image" class="h-screen w-auto object-cover">
         </div>
     </div>
 </template>

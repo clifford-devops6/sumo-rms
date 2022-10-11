@@ -5,24 +5,23 @@
 
     </Head>
     <reset-password-form
-        url="/admin/auth/update-password"
+        url="/tenant/auth/update-password"
         :code="code"
         :email="request.email"
-
     >
 
     </reset-password-form>
 </template>
 
 <script setup lang="ts">
+
 import {Head} from "@inertiajs/inertia-vue3";
 import ResetPasswordForm from "@/views/components/reset-password-form.vue";
-
- const props=defineProps({
-     code:String,
-     request:Object,
-     url: String
- })
+const props=defineProps({
+    code:String,
+    request:Object,
+    url: String
+})
 
 
 </script>

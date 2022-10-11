@@ -2,24 +2,26 @@
 
 namespace App\Models;
 
+
+use App\Notifications\CaretakePasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
-use App\Notifications\CustomResetPassword;
 
-class Manager extends Authenticatable
+class Caretaker extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens, HasRoles, HasPermissions;
+    use HasFactory,Notifiable, HasApiTokens, HasRoles, HasPermissions;
 
     protected $fillable=[
         'name',
         'email',
         'password',
         'last_name',
-        'manager_id',
+        'caretaker_id',
         'cellphone'
     ];
 
@@ -32,6 +34,7 @@ class Manager extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
     /**
      * Send a password reset notification to the user.
      *
@@ -41,6 +44,6 @@ class Manager extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
 
-        $this->notify(new CustomResetPassword($token));
+        $this->notify(new CaretakePasswordNotification($token));
     }
 }

@@ -25,10 +25,23 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
 
             if (Auth::guard($guard)->check()) {
-                if ($guard === 'manager') {
-                    return redirect(RouteServiceProvider::MANAGER);
+
+                switch ($guard) {
+                    case ($guard === 'manager'):
+                        return redirect(RouteServiceProvider::MANAGER);
+                        break;
+                    case ($guard === 'caretaker'):
+                        return redirect(RouteServiceProvider::CARETAKER);
+                        break;
+                    case ($guard === 'web'):
+                        return redirect(RouteServiceProvider::HOME);
+                        break;
+                    case ($guard === 'tenant'):
+                        return redirect(RouteServiceProvider::TENANT);
+                        break;
+                    default:
+                        return redirect('/');
                 }
-                return redirect(RouteServiceProvider::HOME);
             }
         }
 

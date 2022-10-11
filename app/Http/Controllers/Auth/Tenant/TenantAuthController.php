@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth\Manager;
+namespace App\Http\Controllers\Auth\Tenant;
 
 use App\Http\Controllers\Controller;
-use App\Models\Manager;
+
+use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,15 +12,23 @@ use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
 
-class ManagerAuthController extends Controller
+class TenantAuthController extends Controller
 {
+
 
     //Registration page display
     public function register(){
-
-        return inertia::render('manager/auth/register');
+        return inertia::render('/tenant/auth/register');
     }
-//create manager user
+
+    //Tenant login form
+
+    public function  login(){
+
+        return inertia::render('/tenant/auth/login');
+    }
+
+    //create tenant user
     public function create(Request $request){
 
         $validated=$request->validate([
@@ -28,26 +37,25 @@ class ManagerAuthController extends Controller
             'email'=>['required', 'string', 'email', 'max:255', 'unique:managers'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'cellphone'=>['required', 'string', 'max:13'],
+            'secondary_cellphone'=>['nullable', 'string', 'max:13'],
         ]);
 
-        $manager=Manager::create([
+        $tenant=Tenant::create([
             'name'=>$validated['name'],
             'last_name'=>$validated['last_name'],
             'email'=>$validated['email'],
             'cellphone'=>$validated['cellphone'],
             'password'=>Hash::make($validated['password']),
-            'manager_id'=>Str::upper(Str::random(6))
+            'tenant_id'=>Str::upper(Str::random(6)),
+            'secondary_cellphone'=>$validated['secondary_cellphone'],
+            'status'=>0
         ]);
-        $role=Role::findOrFail(2);
-        $manager->assignRole($role);
+        $role=Role::findOrFail(4);
 
-        Auth::guard('manager')->login($manager);
-        return redirect('/manager/home');
-    }
+        $tenant->assignRole($role);
 
-    public function  login(){
-
-       return inertia::render('/manager/auth/login');
+        Auth::guard('tenant')->login($tenant);
+        return redirect('/tenant/tenant');
     }
 
     public function authenticate(Request $request){
@@ -57,10 +65,10 @@ class ManagerAuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::guard('manager')->attempt($credentials)) {
+        if (Auth::guard('tenant')->attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/manager/home');
+            return redirect()->intended('/tenant/resident');
         }
 
         return back()->withErrors([
