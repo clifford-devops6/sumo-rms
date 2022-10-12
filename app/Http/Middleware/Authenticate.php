@@ -25,6 +25,9 @@ class Authenticate extends Middleware
                 case ($request->is('admin/*')):
                     return route('admin.login');
                     break;
+                case ($request->is('landlord/*')):
+                    return route('landlord.login');
+                    break;
                 default:
                     return route('tenant.login');
             }

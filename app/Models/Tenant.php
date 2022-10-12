@@ -24,7 +24,8 @@ class Tenant extends Authenticatable implements MustVerifyEmail
         'type_id',
         'cellphone',
         'secondary_cellphone',
-        'status'
+        'status',
+        'email_verified'
 
     ];
 }

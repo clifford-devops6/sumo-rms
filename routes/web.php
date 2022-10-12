@@ -24,7 +24,7 @@ Route::get('/', function () {
     return inertia('welcome');
 });
 //Admin routes
-Route::group(['middleware'=>['auth']],function (){
+Route::group(['middleware'=>['auth','verified_admin']],function (){
     Route::patch('/admin/profile/password/{id}',[AdminProfileController::class, 'change'])->name('change-password');
     Route::resource('/admin/profile/settings',AdminProfileController::class);
     Route::resource('/admin/dashboard',AdminController::class);
@@ -36,11 +36,11 @@ Route::group(['middleware'=>['auth:manager']], function (){
 });
 
 //caretaker routes
-Route::group(['middleware'=>['auth:caretaker']], function (){
+Route::group(['middleware'=>['auth:caretaker','verified_caretaker']], function (){
     Route::resource('/caretaker/public', CaretakerController::class);
 });
 
 //Auth routes
 require __DIR__.'/auth.php';
 require __DIR__.'/tenant.php';
-
+require __DIR__.'/landlord.php';

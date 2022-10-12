@@ -21,6 +21,7 @@ class RouteServiceProvider extends ServiceProvider
     public const MANAGER ='/manager/home';
     public const CARETAKER ='/caretaker/public';
     public const TENANT ='/tenant/resident';
+    public const LANDLORD ='/landlord/portfolio';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.

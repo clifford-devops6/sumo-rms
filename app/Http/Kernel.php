@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -67,6 +68,11 @@ class Kernel extends HttpKernel
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
+        'verified_admin'=>\App\Http\Middleware\VerifiedUser::class,
+        'verified_manager'=>\App\Http\Middleware\VerifiedManager::class,
+        'verified_tenant'=>\App\Http\Middleware\VerifiedTenant::class,
+        'verified_landlord'=>\App\Http\Middleware\VerifiedLandlord::class,
+        'verified_caretaker'=>\App\Http\Middleware\VerifiedCaretaker::class,
 
     ];
 }

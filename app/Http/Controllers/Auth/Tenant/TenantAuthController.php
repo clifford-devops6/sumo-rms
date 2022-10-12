@@ -34,7 +34,7 @@ class TenantAuthController extends Controller
         $validated=$request->validate([
             'name'=>['required', 'string', 'max:255'],
             'last_name'=>['required', 'string', 'max:255'],
-            'email'=>['required', 'string', 'email', 'max:255', 'unique:managers'],
+            'email'=>['required', 'string', 'email', 'max:255', 'unique:tenants'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'cellphone'=>['required', 'string', 'max:13'],
             'secondary_cellphone'=>['nullable', 'string', 'max:13'],

@@ -22,7 +22,8 @@ class Caretaker extends Authenticatable
         'password',
         'last_name',
         'caretaker_id',
-        'cellphone'
+        'cellphone',
+        'email_verified'
     ];
 
     protected $hidden = [

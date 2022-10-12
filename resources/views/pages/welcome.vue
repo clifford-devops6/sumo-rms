@@ -20,7 +20,7 @@ import {Link} from "@inertiajs/inertia-vue3";
                         <Link href="/tenant/resident">Tenant</Link>
                     </li>
                     <li class="text-sky-800 font-semibold hover:underline">
-                        <Link href="#">Property Owner</Link>
+                        <Link href="/landlord/portfolio">Property Owner</Link>
                     </li>
                     <li class="text-sky-800 font-semibold hover:underline">
                         <Link href="/manager/home" title="Manager">Manager</Link>

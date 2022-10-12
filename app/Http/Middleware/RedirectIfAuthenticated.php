@@ -39,6 +39,9 @@ class RedirectIfAuthenticated
                     case ($guard === 'tenant'):
                         return redirect(RouteServiceProvider::TENANT);
                         break;
+                    case ($guard === 'landlord'):
+                        return redirect(RouteServiceProvider::LANDLORD);
+                        break;
                     default:
                         return redirect('/');
                 }

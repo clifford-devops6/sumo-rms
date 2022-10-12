@@ -52,9 +52,14 @@ return [
             'driver' => 'session',
             'provider' => 'tenants',
         ],
+
         'staff' => [
             'driver' => 'session',
             'provider' => 'staffs',
+        ],
+        'landlord' => [
+            'driver' => 'session',
+            'provider' => 'landlords',
         ],
     ],
 
@@ -96,6 +101,10 @@ return [
         'staffs' => [
             'driver' => 'eloquent',
             'model' => App\Models\Staff::class,
+        ],
+        'landlords' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Landlord::class,
         ],
 
         // 'users' => [
@@ -148,6 +157,12 @@ return [
         ],
         'staffs' => [
             'provider' => 'staffs',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'landlords' => [
+            'provider' => 'landlords',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

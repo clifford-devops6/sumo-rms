@@ -20,7 +20,8 @@ class Manager extends Authenticatable
         'password',
         'last_name',
         'manager_id',
-        'cellphone'
+        'cellphone',
+        'email_verified'
     ];
 
     protected $hidden = [
