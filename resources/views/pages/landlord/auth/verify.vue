@@ -1,4 +1,7 @@
 <template layout>
+    <Head>
+        <title>Verify Email</title>
+    </Head>
     <div class="h-screen grid place-content-center">
         <div class="bg-white rounded-3xl shadow overflow-hidden w-96">
             <div class=" py-5 px-5">
@@ -28,6 +31,7 @@
 
 <script setup lang="ts">
 import {Link} from "@inertiajs/inertia-vue3";
+import {Head} from "@inertiajs/inertia-vue3";
 
 </script>
 

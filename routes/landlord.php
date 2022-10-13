@@ -5,6 +5,6 @@ use App\Http\Controllers\Landlord\LandlordController;
 
 //tenant routes
 
-Route::group(['middleware'=>['verified_landlord','auth:landlord','role:Landlord']], function () {
+Route::group(['middleware'=>['auth:landlord','verified_landlord','role:Landlord']], function () {
     Route::resource('/landlord/portfolio', LandlordController::class);
 });

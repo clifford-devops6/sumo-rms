@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth\Caretaker;
 
+use App\Events\EmailVerify;
 use App\Http\Controllers\Controller;
 use App\Models\Caretaker;
+use App\Models\Verify\VerifyCaretaker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -32,7 +34,7 @@ class CaretakerAuthController extends Controller
         $validated=$request->validate([
             'name'=>['required', 'string', 'max:255'],
             'last_name'=>['required', 'string', 'max:255'],
-            'email'=>['required', 'string', 'email', 'max:255', 'unique:landlords'],
+            'email'=>['required', 'string', 'email', 'max:255', 'unique:caretakers'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'cellphone'=>['required', 'string', 'max:13'],
         ]);
@@ -45,10 +47,21 @@ class CaretakerAuthController extends Controller
             'password'=>Hash::make($validated['password']),
             'caretaker_id'=>Str::upper(Str::random(6))
         ]);
+        //create email verification token
+        $token=Str::random(60);
+        $url=route('caretaker.verified', $token);
+        $user=$caretaker;
+        VerifyCaretaker::create([
+            'caretaker_id'=>$caretaker->id,
+            'token'=>$token
+        ]);
+        //assign role
         $role=Role::findOrFail(3);
         $caretaker->assignRole($role);
-
+        //login user
         Auth::guard('caretaker')->login($caretaker);
+        //event for email verification
+        EmailVerify::dispatch($user,$url);
         return redirect('/caretaker/public');
     }
 

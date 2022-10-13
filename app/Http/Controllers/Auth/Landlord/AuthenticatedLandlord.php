@@ -22,7 +22,7 @@ class AuthenticatedLandlord extends Controller
     }
 
     public function verify(){
-        if ($verifiedLandlord=VerifyLandLord::where('landlord_id', Auth::id())->first()){
+        if (Auth::guard('landlord')->user()->email_verified){
             return  redirect('/landlord/portfolio');
         }
         return Inertia::render('/landlord/auth/verify')

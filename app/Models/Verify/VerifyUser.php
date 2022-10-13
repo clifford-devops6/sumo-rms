@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VerifyUSer extends Model
+class VerifyUser extends Model
 {
     use HasFactory;
 

@@ -6,8 +6,8 @@
         <!---Registration form-->
         <div class="lg:bg-white md:bg-white bg-gradient-to-b from-sky-50 to-sky-400  flex place-content-center w-full lg:col-span-1">
            <div class="self-center border p-8 rounded-xl bg-white shadow-xl ">
-               <h6 class="font-bold text-lg text-center text-sky-800">Register here</h6>
-               <h6 class="text-xl text-center text-gray-800 mt-5">Property manager</h6>
+               <h6 class="font-bold text-lg text-center text-sky-800">Register: Property manager</h6>
+
                <div class="mt-8">
                    <form @submit.prevent="form.post('/manager/auth/create')">
                        <div class="grid grid-cols-2 gap-2">

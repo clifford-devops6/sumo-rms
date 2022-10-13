@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth\Manager;
 
+use App\Events\EmailVerify;
 use App\Http\Controllers\Controller;
 use App\Models\Manager;
+use App\Models\Verify\VerifyManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -38,10 +40,21 @@ class ManagerAuthController extends Controller
             'password'=>Hash::make($validated['password']),
             'manager_id'=>Str::upper(Str::random(6))
         ]);
+        //create email verification token
+        $token=Str::random(60);
+        $url=route('manager.verified', $token);
+        $user=$manager;
+        VerifyManager::create([
+            'manager_id'=>$manager->id,
+            'token'=>$token
+        ]);
+        //assign role
         $role=Role::findOrFail(2);
         $manager->assignRole($role);
 
         Auth::guard('manager')->login($manager);
+        //event for email verification
+        EmailVerify::dispatch($user,$url);
         return redirect('/manager/home');
     }
 

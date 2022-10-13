@@ -49,7 +49,7 @@ class LandlordAuthController extends Controller
             'landlord_id'=>$landlord->id,
             'token'=>$token
         ]);
-    //Assign role
+       //Assign role
         $role=Role::findOrFail(5);
         $landlord->assignRole($role);
         Auth::guard('landlord')->login($landlord);

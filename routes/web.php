@@ -24,19 +24,19 @@ Route::get('/', function () {
     return inertia('welcome');
 });
 //Admin routes
-Route::group(['middleware'=>['auth','verified_admin']],function (){
+Route::group(['middleware'=>['auth','verified_admin','role:Super-Admin']],function (){
     Route::patch('/admin/profile/password/{id}',[AdminProfileController::class, 'change'])->name('change-password');
     Route::resource('/admin/profile/settings',AdminProfileController::class);
     Route::resource('/admin/dashboard',AdminController::class);
 
 });
 //manager routes
-Route::group(['middleware'=>['auth:manager']], function (){
+Route::group(['middleware'=>['auth:manager','verified_manager', 'role:Property-Manager']], function (){
     Route::resource('/manager/home', ManagerController::class);
 });
 
 //caretaker routes
-Route::group(['middleware'=>['auth:caretaker','verified_caretaker']], function (){
+Route::group(['middleware'=>['auth:caretaker', 'role:Caretaker','verified_caretaker']], function (){
     Route::resource('/caretaker/public', CaretakerController::class);
 });
 

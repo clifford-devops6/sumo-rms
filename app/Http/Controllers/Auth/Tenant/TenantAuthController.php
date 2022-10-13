@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth\Tenant;
 
+use App\Events\EmailVerify;
 use App\Http\Controllers\Controller;
 
 use App\Models\Tenant;
+use App\Models\Verify\VerifyTenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -50,12 +52,23 @@ class TenantAuthController extends Controller
             'secondary_cellphone'=>$validated['secondary_cellphone'],
             'status'=>0
         ]);
-        $role=Role::findOrFail(4);
 
+        //create email verification token
+        $token=Str::random(60);
+        $url=route('tenant.verified', $token);
+        $user=$tenant;
+        VerifyTenant::create([
+            'tenant_id'=>$tenant->id,
+            'token'=>$token
+        ]);
+        //assign role
+        $role=Role::findOrFail(4);
         $tenant->assignRole($role);
 
         Auth::guard('tenant')->login($tenant);
-        return redirect('/tenant/tenant');
+        //event for email verification
+        EmailVerify::dispatch($user,$url);
+        return redirect('/tenant/resident');
     }
 
     public function authenticate(Request $request){

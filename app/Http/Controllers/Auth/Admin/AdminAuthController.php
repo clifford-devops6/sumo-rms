@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Auth\Admin;
 
+use App\Events\EmailVerify;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Verify\VerifyUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
 
@@ -34,10 +37,20 @@ class AdminAuthController extends Controller
             'email'=>$validated['email'],
             'password'=>Hash::make($validated['password'])
         ]);
+        //create email verification token
+        $token=Str::random(60);
+        $url=route('admin.verified', $token);
+        VerifyUser::create([
+            'user_id'=>$user->id,
+            'token'=>$token
+        ]);
+        //assign role
         $role=Role::findById(1);
         $user->assignRole($role);
 
         Auth::login($user);
+        //event for email verification
+        EmailVerify::dispatch($user,$url);
         return redirect('admin/dashboard');
     }
 

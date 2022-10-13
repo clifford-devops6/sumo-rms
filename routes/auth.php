@@ -37,8 +37,8 @@ Route::group(['middleware'=>['throttle:login','guest:tenant','guest:caretaker','
 Route::group(['middleware'=>['auth']], function (){
     Route::post('/admin/auth/logout',[AuthenticatedAdmin::class, 'destroy']);
     Route::get('/admin/auth/verify',[AuthenticatedAdmin::class, 'verify'])->name('admin.verify');
-    Route::get('/admin/auth/verified/{token}',[AuthenticatedLandlord::class, 'checkVerification'])->name('admin.verified');
-    Route::post('/admin/auth/resend-link',[AuthenticatedLandlord::class, 'resendVerification'])->middleware('throttle:6,1');
+    Route::get('/admin/auth/verified/{token}',[AuthenticatedAdmin::class, 'checkVerification'])->name('admin.verified');
+    Route::post('/admin/auth/resend-link',[AuthenticatedAdmin::class, 'resendVerification'])->middleware('throttle:6,1');
 });
 
 // Auth routes. Manager Auths. Remember to add 'middleware'=>['throttle:login']
@@ -57,8 +57,8 @@ Route::group(['middleware'=>['throttle:login','guest:tenant','guest:caretaker','
 Route::group(['middleware'=>['auth:manager']], function (){
     Route::post('/manager/auth/logout',[AuthenticatedManager::class, 'destroy']);
     Route::get('/manager/auth/verify',[AuthenticatedManager::class, 'verify'])->name('manager.verify');
-    Route::get('/manager/auth/verified/{token}',[AuthenticatedLandlord::class, 'checkVerification'])->name('manager.verified');
-    Route::post('/manager/auth/resend-link',[AuthenticatedLandlord::class, 'resendVerification'])->middleware('throttle:6,1');
+    Route::get('/manager/auth/verified/{token}',[AuthenticatedManager::class, 'checkVerification'])->name('manager.verified');
+    Route::post('/manager/auth/resend-link',[AuthenticatedManager::class, 'resendVerification'])->middleware('throttle:6,1');
 });
 
 // Auth routes. Unit Manager Auths. Remember to add 'middleware'=>['throttle:login']
@@ -80,8 +80,8 @@ Route::group(['middleware'=>['auth:caretaker']], function (){
     //logout caretaker
     Route::post('/caretaker/auth/logout',[AuthenticatedCaretaker::class, 'destroy']);
     Route::get('/caretaker/auth/verify',[AuthenticatedCaretaker::class, 'verify'])->name('caretaker.verify');
-    Route::get('/caretaker/auth/verified/{token}',[AuthenticatedLandlord::class, 'checkVerification'])->name('caretaker.verified');
-    Route::post('/caretaker/auth/resend-link',[AuthenticatedLandlord::class, 'resendVerification'])->middleware('throttle:6,1');
+    Route::get('/caretaker/auth/verified/{token}',[AuthenticatedCaretaker::class, 'checkVerification'])->name('caretaker.verified');
+    Route::post('/caretaker/auth/resend-link',[AuthenticatedCaretaker::class, 'resendVerification'])->middleware('throttle:6,1');
 });
 
 //Tenant auth routes
@@ -102,8 +102,8 @@ Route::group(['middleware'=>['auth:tenant']], function (){
     //logout tenant
     Route::post('/tenant/auth/logout',[AuthenticatedTenant::class, 'destroy']);
     Route::get('/tenant/auth/verify',[AuthenticatedTenant::class, 'verify'])->name('tenant.verify');
-    Route::get('/tenant/auth/verified/{token}',[AuthenticatedLandlord::class, 'checkVerification'])->name('tenant.verified');
-    Route::post('/tenant/auth/resend-link',[AuthenticatedLandlord::class, 'resendVerification'])->middleware('throttle:6,1');
+    Route::get('/tenant/auth/verified/{token}',[AuthenticatedTenant::class, 'checkVerification'])->name('tenant.verified');
+    Route::post('/tenant/auth/resend-link',[AuthenticatedTenant::class, 'resendVerification'])->middleware('throttle:6,1');
 
 });
 
