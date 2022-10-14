@@ -1,189 +1,160 @@
 <script setup lang="ts">
 import { InertiaProgress } from '@inertiajs/progress'
-import Dropdown from "@/views/components/dropdown.vue";
-import {MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
 InertiaProgress.init()
 import {Link} from "@inertiajs/inertia-vue3";
 </script>
 
 <template>
-    <div class="bg-white drop-shadow p-2 w-full fixed">
-        <div class="flex justify-between my-2">
-            <div class="self-center flex ">
-                <div class="border border-sky-800 flex place-content-center w-10 h-10
-                hover:cursor-pointer rounded-md hover:bg-sky-800 text-sky-800 hover:text-white">
-                    <span class="text-lg self-center"><i class="fas fa-bars"></i></span>
-                </div>
-
-                <h3 class="font-medium ml-5 self-center">SUMO RMS | <span class="capitalize text-sky-800">{{$page.props.auth.name}}</span></h3>
+    <!-- admin navbar-->
+    <div class="navbar bg-white shadow fixed z-[1000]">
+        <div class="flex-none ml-3 lg:hidden">
+            <label for="my-drawer-2" class="text-xl text-sky-800 font-bold hover:cursor-pointer">
+                <span><i class="fas fa-bars"></i></span>
+            </label>
+        </div>
+        <div class="flex-1 ml-3">
+            <h3 class="font-medium self-center">SUMO RMS | <span class="capitalize text-sky-800">{{$page.props.auth.name}}</span></h3>
+        </div>
+        <div class="flex-none gap-2">
+            <div class="hidden lg:block">
+                <input type="search"
+                       class="border rounded-full  h-10 bg-transparent
+                          focus:outline-sky-800 p-2 w-72 text-sm"
+                       placeholder="Search Sumo RMS...">
             </div>
-
-
-            <div class="flex">
-                <div class="hidden lg:block mr-5">
-                    <input type="search"
-                           class="border rounded-full w-full h-10 bg-transparent
-                          focus:outline-blue-800 p-2 w-72 text-sm"
-                           placeholder="Search Sumo RMS...">
-                </div>
-                <Dropdown>
-                    <template #default>
-                        <div class="flex place-content-center font-medium rounded-full text-sm py-2 px-4 bg-sky-800
+            <div class="dropdown dropdown-end">
+                <label tabindex="0">
+                    <div class="flex place-content-center font-medium rounded-full text-sm py-2 px-4 bg-sky-800
                         hover:bg-sky-600 text-white rounded-full w-10 h-10">
-                            <span class="self-center"><i class="fal fa-user"></i></span>
-                        </div>
-
-
-
-                    </template>
-                    <template #menu>
-                        <div class=" divide-y font-semibold rounded overflow-hidden">
-                            <MenuItem v-slot="{ active }" class="py-5 text-md hover:text-sky-500">
-                                <Link href="/" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
-                                    <span class="mr-3"><i class="fal fa-home"></i></span>Home</Link>
-                            </MenuItem>
-                            <MenuItem v-slot="{ active }" class="py-5 text-md hover:text-sky-500">
-                                <Link href="/admin/profile/settings" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
-                                    <span class="mr-3"><i class="fal fa-user"></i></span>Profile</Link>
-                            </MenuItem>
-                            <MenuItem v-slot="{ active }"  class="py-5 text-md hover:text-sky-500">
-                                <Link href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
-                                    <span class="mr-3"><i class="fal fa-cog"></i></span>Settings</Link>
-                            </MenuItem>
-
-                            <MenuItem   class="border-t mb-0">
-                                <Link href="/admin/auth/logout"
-                                method="post" as="button" class="w-full bg-sky-800 py-4 text-white hover:bg-sky-600">
-                                    <span class="mr-3"><i class="fal fa-lock"></i></span>Log Out</Link>
-                            </MenuItem>
-                        </div>
-                    </template>
-
-                </Dropdown>
-
-            </div>
-
-
-        </div>
-    </div>
-    <div class="bg-gray-100 font-Open-sans grid lg:grid-cols-6 text-gray-800 pt-12">
-        <div class="col-span-1 hidden lg:block">
-            <aside class="w-64 " aria-label="Sidebar">
-                <div class="overflow-y-auto py-4 px-3 h-screen flex flex-col">
-
-                    <ul class="space-y-2 mt-5 fixed overflow-y-scroll h-96">
-
-                        <li>
-                            <a href="#"
-                               class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg  hover:bg-gray-200">
-                                <div
-                                    class=" flex drop-shadow-md mr-2 h-10 w-10 items-center justify-center rounded-lg bg-white">
-                                    <span class="text-sky-800"><i class="fal fa-sliders-h"></i></span>
-
-                                </div>
-                                <p class="text-slate-600">Dashboard</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#"
-                               class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-200">
-                                <div
-                                    class=" flex drop-shadow-md mr-2 h-10 w-10 items-center justify-center rounded-lg bg-white">
-                                    <span class="text-sky-800"><i class="fal fa-home"></i></span>
-
-                                </div>
-                                <p class="text-slate-600">Properties</p>
-                            </a>
-                        </li>
-                        <li>
-
-                            <a href="#"
-                               class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-200">
-                                <div
-                                    class=" flex drop-shadow-md mr-2 h-10 w-10 items-center justify-center rounded-lg bg-white">
-                                    <span class="text-sky-800"><i class="fal fa-house-user"></i></span>
-
-                                </div>
-                                <p class="text-slate-600">Property Managers</p>
-                            </a>
-                        </li>
-                        <li>
-
-                            <a href="#"
-                               class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-200">
-                                <div
-                                    class=" flex drop-shadow-md mr-2 h-10 w-10 items-center justify-center rounded-lg bg-white">
-                                    <span class="text-sky-800"><i class="fal fa-users"></i></span>
-
-                                </div>
-                                <p class="text-slate-600">Users</p>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#"
-                               class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-200">
-                                <div
-                                    class=" flex drop-shadow-md mr-2 h-10 w-10 items-center justify-center rounded-lg bg-white">
-                                    <span class="text-sky-800"><i class="fal fa-binoculars"></i></span>
-
-                                </div>
-                                <p class="text-slate-600">Inspections</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#"
-                               class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-200">
-                                <div
-                                    class=" flex drop-shadow-md mr-2 h-10 w-10 items-center justify-center rounded-lg bg-white">
-                                    <span class="text-sky-800"><i class="fal fa-hard-hat"></i></span>
-
-                                </div>
-                                <p class="text-slate-600">Work Orders</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#"
-                               class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-200">
-                                <div
-                                    class=" flex drop-shadow-md mr-2 h-10 w-10 items-center justify-center rounded-lg bg-white">
-                                    <span class="text-sky-800"><i class="fas fa-question-circle"></i></span>
-
-                                </div>
-                                <p class="text-slate-600">Tickets & Support</p>
-                            </a>
-                        </li>
-
-
-                    </ul>
-                    <div class="bg-white rounded-md p-3 drop-shadow-md w-48 fixed bottom-1">
-                        <a href="#"
-                           class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100">
-                            <p class="text-slate-600"><span class="mr-3 text-sky-800"><i class="fal fa-user-headset"></i></span>Help &
-                                Support</p>
-                        </a>
-                        <hr class="my-2">
-                        <a href="#"
-                           class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100">
-                            <p class="text-slate-600"><span class="mr-3 text-sky-800"><i class="fal fa-cog"></i></span>Settings</p>
-                        </a>
-                        <hr class="my-2">
-                        <Link href="/admin/profile/settings"
-                           class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100">
-                            <p class="text-slate-600"><span class="mr-3 text-sky-800"><i class="fal fa-user"></i></span>Profile</p>
-                        </Link>
-
+                        <label tabindex="0" class="m-1"><span class="self-center"><i class="fal fa-user"></i></span></label>
                     </div>
+                </label>
+                <ul tabindex="0" class="absolute divide-y mt-3 shadow menu menu-compact dropdown-content bg-base-100 rounded w-52">
+                    <li>
+                        <Link href="/" class="py-4 hover:text-sky-800 font-semibold">
+                            <span class="mr-1"><i class="fal fa-home"></i></span>Home
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/admin/profile/settings" class="py-4 hover:text-sky-800 font-semibold">
+                            <span class="mr-1"><i class="fal fa-user"></i></span>Profile
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="#" class="py-4 hover:text-sky-800 font-semibold">
+                            <span class="mr-1"><i class="fal fa-cog"></i></span>Settings
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/admin/auth/logout"
+                              method="post" as="button"
+                              class="w-full bg-sky-800 py-4 text-white hover:bg-sky-600">
+                            <span class="mr-1"><i class="fal fa-lock"></i></span>
+                            Log Out
+                        </Link>
+                    </li>
+                </ul>
 
-                </div>
-
-            </aside>
-        </div>
-        <div class="col-span-5 pt-8">
-            <div class="p-3">
-                <slot/>
             </div>
-       </div>
+        </div>
     </div>
 
+
+
+    <div class="drawer drawer-mobile">
+        <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+            <div class="mt-20">
+
+                <div class="p-3">
+                    <slot/>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="drawer-side">
+            <label for="my-drawer-2 " class="drawer-overlay">
+
+            </label>
+          <div class="relative w-64 pt-20 bg-white lg:bg-transparent">
+              <label for="my-drawer-2" class="cursor-pointer fixed right-0 top-20 mr-2 lg:hidden">
+                  <div class="flex place-content-center font-medium rounded-full text-sm bg-green-600
+                        hover:bg-green-800 text-white  w-10 h-10">
+                      <span class="self-center"><i class="far fa-times"></i></span>
+                  </div>
+
+              </label>
+              <ul class="overflow-y-auto   h-96">
+                  <!-- Sidebar content here -->
+                  <li >
+                     <div class="hover:bg-gray-200 px-3 py-2">
+                         <Link href="/admin/dashboard"
+                               class="flex items-center text-base font-normal text-slate-600">
+                             <p class="text-sky-600 font-medium">
+                                 <span class="text-sky-800 mr-2"><i class="fal fa-sliders-h"></i></span>
+                                 Dashboard
+                             </p>
+
+                         </Link>
+                     </div>
+                  </li>
+                  <li >
+                      <div class="hover:bg-gray-200 px-3 py-2">
+                          <p class="text-sky-600 font-medium"><span class="text-sky-800 mr-3"><i class="fal fa-lock"></i></span>Roles & Permission</p>
+                      </div>
+                      <div class="ml-6">
+                          <ul>
+                              <li>
+                                  <Link href="/admin/roles-and-permissions/roles"
+                                        class="flex justify-between   text-gray-900 pr-5">
+                                      <p class="text-slate-600">Roles</p>
+                                  </Link>
+                              </li>
+                              <li>
+                                  <Link href="/admin/roles-and-permissions/permission"
+                                        class="flex items-center  text-base font-normal text-gray-900">
+
+                                      <p class="text-slate-600">Permissions</p>
+                                  </Link>
+                              </li>
+                          </ul>
+                      </div>
+
+                  </li>
+
+                  <li >
+                      <div class="hover:bg-gray-200 px-3 py-2">
+                          <p class="text-sky-600 font-medium"><span class="text-sky-800 mr-3"><i class="fal fa-lock"></i></span>Roles & Permission</p>
+                      </div>
+                      <div class="ml-6">
+                          <ul>
+                              <li>
+                                  <Link href="/admin/roles-and-permissions/roles"
+                                        class="flex justify-between   text-gray-900 pr-5">
+                                      <p class="text-slate-600">Roles</p>
+                                  </Link>
+                              </li>
+                              <li>
+                                  <Link href="/admin/roles-and-permissions/permissions"
+                                        class="flex items-center  text-base font-normal text-gray-900">
+
+                                      <p class="text-slate-600">Permissions</p>
+                                  </Link>
+                              </li>
+                          </ul>
+                      </div>
+
+                  </li>
+
+
+
+              </ul>
+          </div>
+
+        </div>
+    </div>
 </template>
+
+

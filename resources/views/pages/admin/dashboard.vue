@@ -149,6 +149,7 @@
 
         </div>
 
+
         <div class="mt-5">
             <h1>Rich Text Editor</h1>
             <editor
@@ -159,6 +160,9 @@
           }"
             />
         </div>
+
+
+
 
     </div>
 </template>

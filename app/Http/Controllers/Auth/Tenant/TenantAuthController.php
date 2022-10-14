@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth\Tenant;
 use App\Events\EmailVerify;
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\Tenant\TenantRegisterRequest;
 use App\Models\Tenant;
 use App\Models\Verify\VerifyTenant;
 use Illuminate\Http\Request;
@@ -31,25 +32,16 @@ class TenantAuthController extends Controller
     }
 
     //create tenant user
-    public function create(Request $request){
-
-        $validated=$request->validate([
-            'name'=>['required', 'string', 'max:255'],
-            'last_name'=>['required', 'string', 'max:255'],
-            'email'=>['required', 'string', 'email', 'max:255', 'unique:tenants'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'cellphone'=>['required', 'string', 'max:13'],
-            'secondary_cellphone'=>['nullable', 'string', 'max:13'],
-        ]);
+    public function create(TenantRegisterRequest $request){
 
         $tenant=Tenant::create([
-            'name'=>$validated['name'],
-            'last_name'=>$validated['last_name'],
-            'email'=>$validated['email'],
-            'cellphone'=>$validated['cellphone'],
-            'password'=>Hash::make($validated['password']),
+            'name'=>$request->name,
+            'last_name'=>$request->last_name,
+            'email'=>$request->email,
+            'cellphone'=>$request->cellphone,
+            'password'=>Hash::make($request->password),
             'tenant_id'=>Str::upper(Str::random(6)),
-            'secondary_cellphone'=>$validated['secondary_cellphone'],
+            'secondary_cellphone'=>$request->secondary_cellphone,
             'status'=>0
         ]);
 

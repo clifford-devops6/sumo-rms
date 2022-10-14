@@ -23,8 +23,12 @@
     @apply bg-sky-800 text-white border border-sky-800 rounded-md py-2  px-5 hover:bg-sky-600
 }
 
+.btn-small{
+    @apply  py-1  px-3 text-sm
+}
+
 .sumo-input{
-    @apply w-full mt-3 rounded-lg border bg-gray-50 border border-gray-300 text-gray-900 focus:ring-sky-600 focus:border-sky-600 block
+    @apply w-full mt-3 rounded-lg border bg-gray-50 border border-gray-300 text-gray-900 focus:ring-sky-600 focus:border-sky-600 block h-12 p-2
 }
 .sumo-label{
     @apply text-base font-medium text-gray-900

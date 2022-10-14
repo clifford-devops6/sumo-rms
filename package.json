@@ -21,8 +21,7 @@
         "@inertiajs/inertia-vue3": "^0.6.0",
         "@inertiajs/progress": "^0.2.7",
         "@tinymce/tinymce-vue": "^4.0.7",
-        "flowbite": "^1.5.3",
-        "flowbite-vue": "^0.0.6",
+        "daisyui": "^2.31.0",
         "sweetalert2": "^11.4.38",
         "tinymce": "^6.2.0",
         "vue": "^3.2.36"
