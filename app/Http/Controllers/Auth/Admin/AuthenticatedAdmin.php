@@ -28,19 +28,24 @@ class AuthenticatedAdmin extends Controller
     }
 
     //verify email
-    public function checkVerification($token){
-        $verifyUser=VerifyUser::where('token', $token)->first();
+    public function checkVerification(Request $request){
+
+        $validated=$request->validate([
+            'otp_code'=>'required|integer|digits:4'
+        ]);
+        $verifyUser=VerifyUser::where('otp_code', $validated['otp_code'])->first();
         if(!is_null($verifyUser) ){
             $user=$verifyUser->user;
             if(!$user->email_verified) {
                 $verifyUser->user->email_verified = 1;
                 $verifyUser->user->save();
-                return redirect('/admin/auth/verify');
+                return redirect('/admin/dashboard');
             }else{
                 return redirect('/admin/dashboard');
             }
         }else{
-            return  redirect('/admin/auth/verify');
+            return  redirect('/admin/auth/verify')
+                ->with('status', 'We could not find the OTP provided in our database');
         }
     }
 
@@ -50,16 +55,16 @@ class AuthenticatedAdmin extends Controller
     {
         $verifyUser = VerifyUser::where('user_id', Auth::id())->first();
         if (!$verifyUser) {
-            $token = Str::random(60);
+            $otp = rand(1111,9999);;
             $verifyUser = VerifyUser::create([
                 'user_id' => Auth::id(),
-                'token' => $token
+                'otp_code' => $otp
             ]);
         }
         //event for email verification
         $user=Auth::user();
-        $url=route('admin.verified', $verifyUser->token);
-        EmailVerify::dispatch($user,$url);
+        $otp=$verifyUser->otp_code;
+        EmailVerify::dispatch($user,$otp);
 
         return redirect()->back()
             ->with('status', 'OTP Sent Successfully');

@@ -37,7 +37,7 @@ Route::group(['middleware'=>['throttle:login','guest:tenant','guest:caretaker','
 Route::group(['middleware'=>['auth']], function (){
     Route::post('/admin/auth/logout',[AuthenticatedAdmin::class, 'destroy']);
     Route::get('/admin/auth/verify',[AuthenticatedAdmin::class, 'verify'])->name('admin.verify');
-    Route::get('/admin/auth/verified/{token}',[AuthenticatedAdmin::class, 'checkVerification'])->name('admin.verified');
+    Route::post('/admin/auth/verified',[AuthenticatedAdmin::class, 'checkVerification'])->name('admin.verified');
     Route::post('/admin/auth/resend-link',[AuthenticatedAdmin::class, 'resendVerification'])->middleware('throttle:6,1');
 });
 
@@ -57,7 +57,7 @@ Route::group(['middleware'=>['throttle:login','guest:tenant','guest:caretaker','
 Route::group(['middleware'=>['auth:manager']], function (){
     Route::post('/manager/auth/logout',[AuthenticatedManager::class, 'destroy']);
     Route::get('/manager/auth/verify',[AuthenticatedManager::class, 'verify'])->name('manager.verify');
-    Route::get('/manager/auth/verified/{token}',[AuthenticatedManager::class, 'checkVerification'])->name('manager.verified');
+    Route::post('/manager/auth/verified',[AuthenticatedManager::class, 'checkVerification'])->name('manager.verified');
     Route::post('/manager/auth/resend-link',[AuthenticatedManager::class, 'resendVerification'])->middleware('throttle:6,1');
 });
 
@@ -72,7 +72,7 @@ Route::group(['middleware'=>['guest:tenant','guest:caretaker','guest:web', 'gues
     //caretaker password reset routes
     Route::get('/caretaker/auth/forgot-password',[CaretakerPasswordReset::class, 'reset']);
     Route::post('/caretaker/auth/password-store',[CaretakerPasswordReset::class, 'store']);
-    Route::get('/caretaker/auth/reset-password/{token}', [CaretakerPasswordReset::class, 'create'])->name('caretaker.reset');
+    Route::get('/caretaker/auth/reset-password', [CaretakerPasswordReset::class, 'create'])->name('caretaker.reset');
     Route::post('/caretaker/auth/update-password', [CaretakerPasswordReset::class, 'update']);
 });
 //
@@ -80,7 +80,7 @@ Route::group(['middleware'=>['auth:caretaker']], function (){
     //logout caretaker
     Route::post('/caretaker/auth/logout',[AuthenticatedCaretaker::class, 'destroy']);
     Route::get('/caretaker/auth/verify',[AuthenticatedCaretaker::class, 'verify'])->name('caretaker.verify');
-    Route::get('/caretaker/auth/verified/{token}',[AuthenticatedCaretaker::class, 'checkVerification'])->name('caretaker.verified');
+    Route::post('/caretaker/auth/verified',[AuthenticatedCaretaker::class, 'checkVerification'])->name('caretaker.verified');
     Route::post('/caretaker/auth/resend-link',[AuthenticatedCaretaker::class, 'resendVerification'])->middleware('throttle:6,1');
 });
 
@@ -94,7 +94,7 @@ Route::group(['middleware'=>['guest:tenant','guest:caretaker','guest:web', 'gues
     //caretaker password reset routes
     Route::get('/tenant/auth/forgot-password',[TenantPasswordReset::class, 'reset']);
     Route::post('/tenant/auth/password-store',[TenantPasswordReset::class, 'store']);
-    Route::get('/tenant/auth/reset-password/{token}', [TenantPasswordReset::class, 'create'])->name('tenant.reset');
+    Route::get('/tenant/auth/reset-password/{toke}', [TenantPasswordReset::class, 'create'])->name('tenant.reset');
     Route::post('/tenant/auth/update-password', [TenantPasswordReset::class, 'update']);
 });
 
@@ -102,7 +102,7 @@ Route::group(['middleware'=>['auth:tenant']], function (){
     //logout tenant
     Route::post('/tenant/auth/logout',[AuthenticatedTenant::class, 'destroy']);
     Route::get('/tenant/auth/verify',[AuthenticatedTenant::class, 'verify'])->name('tenant.verify');
-    Route::get('/tenant/auth/verified/{token}',[AuthenticatedTenant::class, 'checkVerification'])->name('tenant.verified');
+    Route::post('/tenant/auth/verified',[AuthenticatedTenant::class, 'checkVerification'])->name('tenant.verified');
     Route::post('/tenant/auth/resend-link',[AuthenticatedTenant::class, 'resendVerification'])->middleware('throttle:6,1');
 
 });
@@ -125,7 +125,7 @@ Route::group(['middleware'=>['auth:landlord']], function (){
     //logout landlord
     Route::post('/landlord/auth/logout',[AuthenticatedLandlord::class, 'destroy']);
     Route::get('/landlord/auth/verify',[AuthenticatedLandlord::class, 'verify'])->name('landlord.verify');
-    Route::get('/landlord/auth/verified/{token}',[AuthenticatedLandlord::class, 'checkVerification'])->name('landlord.verified');
+    Route::post('/landlord/auth/verified',[AuthenticatedLandlord::class, 'checkVerification'])->name('landlord.verified');
     Route::post('/landlord/auth/resend-link',[AuthenticatedLandlord::class, 'resendVerification'])->middleware('throttle:6,1');
 });
 

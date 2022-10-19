@@ -30,19 +30,23 @@ class AuthenticatedLandlord extends Controller
     }
 
     //verify email
-    public function checkVerification($token){
-      $verifyUser=VerifyLandLord::where('token', $token)->first();
+    public function checkVerification(Request $request){
+        $validated=$request->validate([
+            'otp_code'=>'required|integer|digits:4'
+        ]);
+      $verifyUser=VerifyLandLord::where('otp_code', $validated['otp_code'])->first();
         if(!is_null($verifyUser) ){
             $landlord=$verifyUser->landlord;
             if(!$landlord->email_verified) {
                 $verifyUser->landlord->email_verified = 1;
                 $verifyUser->landlord->save();
-                return redirect('/landlord/auth/verify');
+                return redirect('/landlord/portfolio');
             }else{
                 return redirect('/landlord/portfolio');
             }
         }else{
-            return  redirect('/landlord/auth/verify');
+            return  redirect('/landlord/auth/verify')
+                ->with('status', 'We could not find the OTP provided in our database');
         }
     }
 
@@ -51,17 +55,19 @@ class AuthenticatedLandlord extends Controller
     public function resendVerification(){
      $verifyLandlord=VerifyLandLord::where('landlord_id', Auth::id())->first();
      if (!$verifyLandlord){
-         $token=Str::random(60);
+         $otp=rand(1111,9999);;
          $verifyLandlord= VerifyLandLord::create([
              'landlord_id'=>Auth::id(),
-             'token'=>$token
+             'otp_code'=>$otp
          ]);
      }
 
         //event for email verification
         $user=Auth::user();
-        $url=route('landlord.verified', $verifyLandlord->token);
-        EmailVerify::dispatch($user,$url);
+        $otp= $verifyLandlord->otp_code;
+        EmailVerify::dispatch($user,$otp);
+        return redirect()->back()
+            ->with('status', 'OTP Sent Successfully');
 
     }
 }

@@ -38,7 +38,7 @@ class EmailVerifyListener implements ShouldQueue
 
         */
 
-        $event->user->notify(new EmailVerificationNotification($event->url));
+        $event->user->notify(new EmailVerificationNotification($event->otp));
 
 
 

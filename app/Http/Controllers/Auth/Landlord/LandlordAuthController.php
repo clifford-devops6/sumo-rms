@@ -42,12 +42,11 @@ class LandlordAuthController extends Controller
             'landlord_id'=>Str::upper(Str::random(6))
         ]);
         //create email verification token
-        $token=Str::random(60);
-        $url=route('landlord.verified', $token);
+        $otp=rand(1111,9999);;
         $user=$landlord;
         VerifyLandLord::create([
             'landlord_id'=>$landlord->id,
-            'token'=>$token
+            'otp_code'=>$otp
         ]);
        //Assign role
         $role=Role::findOrFail(5);
@@ -57,7 +56,7 @@ class LandlordAuthController extends Controller
 
 
         //event for email verification
-       EmailVerify::dispatch($user,$url);
+       EmailVerify::dispatch($user,$otp);
 
         return redirect('/landlord/portfolio');
     }

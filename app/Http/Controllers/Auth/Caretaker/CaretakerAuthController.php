@@ -48,12 +48,11 @@ class CaretakerAuthController extends Controller
             'caretaker_id'=>Str::upper(Str::random(6))
         ]);
         //create email verification token
-        $token=Str::random(60);
-        $url=route('caretaker.verified', $token);
+        $otp=rand(1111,9999);
         $user=$caretaker;
         VerifyCaretaker::create([
             'caretaker_id'=>$caretaker->id,
-            'token'=>$token
+            'otp_code'=>$otp
         ]);
         //assign role
         $role=Role::findOrFail(3);
@@ -61,7 +60,7 @@ class CaretakerAuthController extends Controller
         //login user
         Auth::guard('caretaker')->login($caretaker);
         //event for email verification
-        EmailVerify::dispatch($user,$url);
+        EmailVerify::dispatch($user,$otp);
         return redirect('/caretaker/public');
     }
 

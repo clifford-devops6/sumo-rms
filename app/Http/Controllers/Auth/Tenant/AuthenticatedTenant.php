@@ -30,19 +30,23 @@ class AuthenticatedTenant extends Controller
     }
 
     //verify email
-    public function checkVerification($token){
-        $verifyUser=VerifyTenant::where('token', $token)->first();
+    public function checkVerification(Request $request){
+        $validated=$request->validate([
+            'otp_code'=>'required|integer|digits:4'
+        ]);
+        $verifyUser=VerifyTenant::where('otp_code', $validated['otp_code'])->first();
         if(!is_null($verifyUser) ){
             $user=$verifyUser->tenant;
             if(!$user->email_verified) {
                 $verifyUser->tenant->email_verified = 1;
                 $verifyUser->tenant->save();
-                return redirect('/tenant/auth/verify');
+                return redirect('/tenant/resident');
             }else{
                 return redirect('/tenant/resident');
             }
         }else{
-            return  redirect('/tenant/auth/verify');
+            return  redirect('/tenant/auth/verify')
+                ->with('status', 'We could not find the OTP provided in our database');
         }
     }
 
@@ -52,16 +56,18 @@ class AuthenticatedTenant extends Controller
     {
         $verifyUser = VerifyTenant::where('tenant_id', Auth::id())->first();
         if (!$verifyUser) {
-            $token = Str::random(60);
+            $otp = rand(1111,9999);;
             $verifyUser = VerifyTenant::create([
                 'tenant_id' => Auth::id(),
-                'token' => $token
+                'otp_code' => $otp
             ]);
         }
 
         //event for email verification
         $user=Auth::user();
-        $url=route('tenant.verified', $verifyUser->token);
-        EmailVerify::dispatch($user,$url);
+        $otp=$verifyUser->otp_code;
+        EmailVerify::dispatch($user,$otp);
+        return redirect()->back()
+            ->with('status', 'OTP Sent Successfully');
     }
 }

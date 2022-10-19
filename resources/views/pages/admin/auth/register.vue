@@ -10,7 +10,7 @@
                 <h1 class="font-semibold text-xl text-center mt-5">Register</h1>
             </div>
             <div class="py-5 px-5">
-                <form @submit.prevent="form.post('/admin/auth/create')">
+                <form @submit.prevent="submit">
                     <div class="grid grid-cols-2 gap-2">
                         <div class="mt-3">
                             <label for="first_name" class="sumo-label"><span class="mr-2 text-sky-800"><i class="fal fa-user-circle"></i></span>First Name:</label>

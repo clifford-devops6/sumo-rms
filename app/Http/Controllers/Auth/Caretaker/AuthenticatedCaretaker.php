@@ -30,16 +30,20 @@ class AuthenticatedCaretaker extends Controller
     }
 
     //verify email
-    public function checkVerification($token){
-        $verifyUser=VerifyCaretaker::where('token', $token)->first();
+    public function checkVerification(Request $request){
+        $validated=$request->validate([
+            'otp_code'=>'required|integer|digits:4'
+        ]);
+        $verifyUser=VerifyCaretaker::where('otp_code', $validated['otp_code'])->first();
         if(!is_null($verifyUser) ){
             $caretaker=$verifyUser->caretaker;
             if(!$caretaker->email_verified) {
                 $verifyUser->caretaker->email_verified = 1;
                 $verifyUser->caretaker->save();
-                return redirect('/caretaker/auth/verify');
-            }else{
                 return redirect('/caretaker/public');
+            }else{
+                return redirect('/caretaker/public')
+                    ->with('status', 'We could not find the OTP provided in our database');
             }
         }else{
             return  redirect('/caretaker/auth/verify');
@@ -52,15 +56,17 @@ class AuthenticatedCaretaker extends Controller
     {
         $verifyUser = VerifyCaretaker::where('caretaker_id', Auth::id())->first();
         if (!$verifyUser) {
-            $token = Str::random(60);
+            $otp =rand(1111,9999);;
             $verifyUser = VerifyCaretaker::create([
                 'caretaker_id' => Auth::id(),
-                'token' => $token
+                'otp_code' => $otp
             ]);
         }
         //event for email verification
         $user=Auth::user();
-        $url=route('caretaker.verified', $verifyUser->token);
-        EmailVerify::dispatch($user,$url);
+        $otp=$verifyUser->otp_code;
+        EmailVerify::dispatch($user,$otp);
+        return redirect()->back()
+            ->with('status', 'OTP Sent Successfully');
     }
 }

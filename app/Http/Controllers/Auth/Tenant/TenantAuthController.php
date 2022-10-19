@@ -46,12 +46,11 @@ class TenantAuthController extends Controller
         ]);
 
         //create email verification token
-        $token=Str::random(60);
-        $url=route('tenant.verified', $token);
+        $otp=rand(1111,9999);;
         $user=$tenant;
         VerifyTenant::create([
             'tenant_id'=>$tenant->id,
-            'token'=>$token
+            'otp_code'=>$otp
         ]);
         //assign role
         $role=Role::findOrFail(4);
@@ -59,7 +58,7 @@ class TenantAuthController extends Controller
 
         Auth::guard('tenant')->login($tenant);
         //event for email verification
-        EmailVerify::dispatch($user,$url);
+        EmailVerify::dispatch($user,$otp);
         return redirect('/tenant/resident');
     }
 

@@ -41,12 +41,11 @@ class ManagerAuthController extends Controller
             'manager_id'=>Str::upper(Str::random(6))
         ]);
         //create email verification token
-        $token=Str::random(60);
-        $url=route('manager.verified', $token);
+        $otp=rand(1111,9999);
         $user=$manager;
         VerifyManager::create([
             'manager_id'=>$manager->id,
-            'token'=>$token
+            'otp_code'=>$otp
         ]);
         //assign role
         $role=Role::findOrFail(2);
@@ -54,7 +53,7 @@ class ManagerAuthController extends Controller
 
         Auth::guard('manager')->login($manager);
         //event for email verification
-        EmailVerify::dispatch($user,$url);
+        EmailVerify::dispatch($user,$otp);
         return redirect('/manager/home');
     }
 

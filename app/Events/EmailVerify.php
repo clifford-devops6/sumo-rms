@@ -21,13 +21,13 @@ class EmailVerify
      */
 
     public $user;
-    public $url;
+    public $otp;
 
-    public function __construct($user,$url)
+    public function __construct($user,$otp)
     {
         //
         $this->user=$user;
-        $this->url=$url;
+        $this->otp=$otp;
     }
 
     /**

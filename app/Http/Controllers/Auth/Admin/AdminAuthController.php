@@ -38,11 +38,10 @@ class AdminAuthController extends Controller
             'password'=>Hash::make($validated['password'])
         ]);
         //create email verification token
-        $token=Str::random(60);
-        $url=route('admin.verified', $token);
+        $token=rand(1111,9999);;
         VerifyUser::create([
             'user_id'=>$user->id,
-            'token'=>$token
+            'otp_code'=>$token
         ]);
         //assign role
         $role=Role::findById(1);
@@ -50,7 +49,7 @@ class AdminAuthController extends Controller
 
         Auth::login($user);
         //event for email verification
-        EmailVerify::dispatch($user,$url);
+        EmailVerify::dispatch($user,$token);
         return redirect('admin/dashboard');
     }
 
