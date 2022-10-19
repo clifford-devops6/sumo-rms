@@ -2,10 +2,72 @@
 import { InertiaProgress } from '@inertiajs/progress'
 InertiaProgress.init()
 import {Link} from "@inertiajs/inertia-vue3";
+import { Sidebar } from 'flowbite-vue'
 </script>
-
 <template>
-    <!-- admin navbar-->
+    <div class="flex gap-2">
+        <div class="relative">
+           <aside class="w-64 top-0">
+           <div class="fixed w-64">
+               <div class="mt-5 px-3">
+                   <h1>SUMO REMS LOGO</h1>
+               </div>
+               <div class="px-3 w-full mt-12">
+                   <div class="flex gap-3">
+                       <div class="rounded-full h-12 w-12 overflow-hidden">
+                       <img :src="'/images/user.png'" title="User Icon">
+                       </div>
+                       <div class="self-center">
+                           <div class="flex justify-between gap-4">
+                               <div>
+                                   <h6 class="capitalize font-semibold">{{$page.props.auth.name}} {{$page.props.auth.last_name}}</h6>
+                                   <p class="text-sky-800 text-sm">{{$page.props.auth.role}}</p>
+                               </div>
+
+                           </div>
+
+                       </div>
+                   </div>
+                   <!--search-->
+                   <div class="mt-8">
+                       <form>
+                           <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
+                           <div class="relative">
+                               <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                   <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                               </div>
+                               <input type="search" id="default-search" class="block p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-sky-600 focus:border-sky-600 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Sumo RMS..." required>
+
+                           </div>
+                       </form>
+                   </div>
+               </div>
+
+
+
+           </div>
+           </aside>
+        </div>
+
+        <div class="bg-white border-l">
+            <div>
+                <nav class="border-b py-4 px-3 fixed bg-white z-50 w-full">
+                    <h1>Dashboard</h1>
+
+                </nav>
+
+            </div>
+            <div class="px-3 mt-16">
+                <slot/>
+            </div>
+
+        </div>
+    </div>
+
+</template>
+
+<!--<template>
+
     <div class="navbar bg-white shadow fixed z-[1000]">
         <div class="flex-none ml-3 lg:hidden">
             <label for="my-drawer-2" class="text-xl text-sky-800 font-bold hover:cursor-pointer">
@@ -87,7 +149,7 @@ import {Link} from "@inertiajs/inertia-vue3";
 
               </label>
               <ul class="overflow-y-auto   h-96">
-                  <!-- Sidebar content here -->
+
                   <li >
                      <div class="hover:bg-gray-200 px-3 py-2">
                          <Link href="/admin/dashboard"
@@ -155,6 +217,6 @@ import {Link} from "@inertiajs/inertia-vue3";
 
         </div>
     </div>
-</template>
+</template>-->
 
 

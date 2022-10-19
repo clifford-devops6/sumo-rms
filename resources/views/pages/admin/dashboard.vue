@@ -4,12 +4,7 @@
         <meta head-key="description" name="description" content="This is the default description" />
 
     </Head>
-    <div>
-        <dropdown placement="bottom" text="Bottom">
-            Any content here
-        </dropdown>
-    </div>
-    <!-- Buttons-->
+
     <div>
         <h2>Buttons</h2>
         <div class="inline-block mt-3">

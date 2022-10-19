@@ -55,7 +55,7 @@ class AuthenticatedLandlord extends Controller
     public function resendVerification(){
      $verifyLandlord=VerifyLandLord::where('landlord_id', Auth::id())->first();
      if (!$verifyLandlord){
-         $otp=rand(1111,9999);;
+         $otp=rand(1111,9999);
          $verifyLandlord= VerifyLandLord::create([
              'landlord_id'=>Auth::id(),
              'otp_code'=>$otp

@@ -55,7 +55,7 @@ class AuthenticatedAdmin extends Controller
     {
         $verifyUser = VerifyUser::where('user_id', Auth::id())->first();
         if (!$verifyUser) {
-            $otp = rand(1111,9999);;
+            $otp = rand(1111,9999);
             $verifyUser = VerifyUser::create([
                 'user_id' => Auth::id(),
                 'otp_code' => $otp

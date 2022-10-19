@@ -56,7 +56,7 @@ class AuthenticatedCaretaker extends Controller
     {
         $verifyUser = VerifyCaretaker::where('caretaker_id', Auth::id())->first();
         if (!$verifyUser) {
-            $otp =rand(1111,9999);;
+            $otp =rand(1111,9999);
             $verifyUser = VerifyCaretaker::create([
                 'caretaker_id' => Auth::id(),
                 'otp_code' => $otp

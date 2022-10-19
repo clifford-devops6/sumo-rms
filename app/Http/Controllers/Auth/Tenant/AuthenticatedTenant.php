@@ -56,7 +56,7 @@ class AuthenticatedTenant extends Controller
     {
         $verifyUser = VerifyTenant::where('tenant_id', Auth::id())->first();
         if (!$verifyUser) {
-            $otp = rand(1111,9999);;
+            $otp = rand(1111,9999);
             $verifyUser = VerifyTenant::create([
                 'tenant_id' => Auth::id(),
                 'otp_code' => $otp

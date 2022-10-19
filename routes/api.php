@@ -22,5 +22,6 @@ Route::group([], function (){
    Route::post('/sumorems/v1/register', [TenantApiController::class,'register']);
    Route::post('/sumorems/v1/update/{id}', [TenantApiController::class,'update']);
    Route::post('/sumorems/v1/login', [TenantApiController::class,'login']);
-   Route::post('/sumorems/v1/request/verification/{id}', [TenantApiController::class,'verification']);
+   Route::post('/sumorems/v1/request/resendOTP/{id}', [TenantApiController::class,'verification']);//resend verification code
+    Route::post('/sumorems/v1/request/verifyUser/{id}', [TenantApiController::class,'verifyUser']);
 });

@@ -53,7 +53,7 @@ class AuthenticatedManager extends Controller
     {
         $verifyUser = VerifyManager::where('manager_id', Auth::id())->first();
         if (!$verifyUser) {
-            $otp = rand(1111,9999);;
+            $otp = rand(1111,9999);
             $verifyUser = VerifyManager::create([
                 'manager_id' => Auth::id(),
                 'otp_code' => $otp

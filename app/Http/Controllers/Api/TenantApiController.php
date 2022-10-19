@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\EmailVerify;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Tenant\OTPCodeRequest;
 use App\Http\Requests\Tenant\TenantLoginRequest;
 use App\Http\Requests\Tenant\TenantRegisterRequest;
 use App\Http\Requests\Tenant\TenantUpdateRequest;
@@ -134,17 +135,17 @@ class TenantApiController extends Controller
         if ($tenant){
             $verifyUser = VerifyTenant::where('tenant_id', $tenant->id)->first();
             if (!$verifyUser) {
-                $token = Str::random(60);
+                $otp_code = rand(1111,9999);
                 $verifyUser = VerifyTenant::create([
-                    'tenant_id' => Auth::id(),
-                    'token' => $token
+                    'tenant_id' => $id,
+                    'otp_code' => $otp_code
                 ]);
             }
 
             //event for email verification
             $user=$tenant;
-            $url=route('tenant.verified', $verifyUser->token);
-            EmailVerify::dispatch($user,$url);
+            $otp_code=$verifyUser->otp_code;
+            EmailVerify::dispatch($user,$otp_code);
             return response()
                 ->json([
                     'message'=>'Email Verification Successfully sent'
@@ -155,6 +156,34 @@ class TenantApiController extends Controller
                     'message'=>'User does not exist in our database'
                 ], 404);
         }
+    }
+
+
+    public function verifyUser(OTPCodeRequest $request, $id){
+        $tenant=Tenant::find($id);
+        if ($tenant){
+            $verifyUser = VerifyTenant::where('tenant_id', $tenant->id)->where('otp_code', $request->otp_code)->first();
+            if ($verifyUser) {
+
+              $tenant->update(['email_verified'=>1]);
+                return response()
+                    ->json([
+                        'message'=>'User verified Successfully'
+                    ], 200);
+            }else{
+                return response()
+                    ->json([
+                        'message'=>'OTP Code not found in our databases'
+                    ], 404);
+            }
+
+        }else{
+            return response()
+                ->json([
+                    'message'=>'User does not exist in our database'
+                ], 404);
+        }
+
     }
 
 }
