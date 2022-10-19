@@ -10,7 +10,7 @@ class VerifyTenant extends Model
 {
     use HasFactory;
 
-    protected $fillable=['tenant_id', 'token'];
+    protected $fillable=['tenant_id', 'otp_code'];
 
     public function tenant(){
         return $this->belongsTo(Tenant::class);

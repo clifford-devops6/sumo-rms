@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class VerifyManager extends Model
 {
     use HasFactory;
-    protected $fillable=['manager_id', 'token'];
+    protected $fillable=['manager_id', 'otp_code'];
 
     public function manager(){
         return $this->belongsTo(Manager::class);

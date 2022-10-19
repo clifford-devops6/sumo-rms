@@ -1,7 +1,7 @@
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/inertia-vue3'
 import { resolvePageComponent } from 'vite-plugin-laravel/inertia'
-
+import 'flowbite';
 
 createInertiaApp({
 	resolve: (name) => resolvePageComponent(name, import.meta.glob('../views/pages/**/*.vue')),

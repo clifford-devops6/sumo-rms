@@ -20,7 +20,7 @@ class VerifiedUser
         if (!Auth::guard('web')->user()->email_verified){
             return redirect()->route('admin.verify')
                 ->with('status','You need to confirm you email.
-                We have sent you an activation link');
+                We have sent you an OTP');
         }
         return $next($request);
     }

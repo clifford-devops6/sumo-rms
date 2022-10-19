@@ -80,7 +80,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="border-b"  v-for="permission in permissions.data" :key="role.id">
+            <tr class="border-b"  v-for="permission in permissions.data" :key="permission.id">
                 <td class="py-3 px-4">{{permission.id}}</td>
                 <td class="py-3 px-4">{{permission.name}}</td>
                 <td class="py-3 px-4">{{permission.guard_name}}</td>
@@ -126,7 +126,7 @@ const modal=ref(false)
 let search=ref(props.filters.search)
 
 watch(search, _.debounce(function (value) {
-    Inertia.get('/admin/roles-and-permissions/roles',{
+    Inertia.get('/admin/roles-and-permissions/permission',{
         search:value
     }, {preserveState:true, replace:true});
 }, 300))
@@ -136,13 +136,13 @@ let form= useForm({
     guard_name:''
 })
 let submit=()=>{
-    form.post('/admin/roles-and-permissions/roles',{
+    form.post('/admin/roles-and-permissions/permission',{
         onSuccess:()=>{
             form.reset()
             modal.value=false
             Swal.fire({
                 position: 'top-end',
-                text: 'Role Successfully created',
+                text: 'Permission Successfully created',
                 showConfirmButton: false,
                 timer: 3000,
                 backdrop:false

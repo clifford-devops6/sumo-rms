@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class VerifyCaretaker extends Model
 {
     use HasFactory;
-    protected $fillable=['caretaker_id', 'token'];
+    protected $fillable=['caretaker_id', 'otp_code'];
 
     public function caretaker(){
         return $this->belongsTo(Caretaker::class);

@@ -58,7 +58,10 @@ class AuthenticatedAdmin extends Controller
         }
         //event for email verification
         $user=Auth::user();
-        $url=route('user.verified', $verifyUser->token);
+        $url=route('admin.verified', $verifyUser->token);
         EmailVerify::dispatch($user,$url);
+
+        return redirect()->back()
+            ->with('status', 'OTP Sent Successfully');
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('verify_caretakers', function (Blueprint $table) {
             $table->integer('caretaker_id');
-            $table->string('token');
+            $table->string('otp_code');
             $table->timestamps();
         });
     }

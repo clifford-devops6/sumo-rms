@@ -43,7 +43,7 @@
 
         </div>
         <div class="hidden lg:block lg:col-span-1">
-            <img src="/images/family.jpg" alt="Sample Property Image" class="h-screen w-auto object-cover">
+            <img :src="'/images/family.jpg'" alt="Sample Property Image" class="h-screen w-auto object-cover">
         </div>
     </div>
 </template>

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('verify_tenants', function (Blueprint $table) {
             $table->integer('tenant_id');
-            $table->string('token');
+            $table->string('otp_code');
             $table->timestamps();
         });
     }

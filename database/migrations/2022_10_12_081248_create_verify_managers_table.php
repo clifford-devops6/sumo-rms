@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('verify_managers', function (Blueprint $table) {
             $table->integer('manager_id');
-            $table->string('token');
+            $table->string('otp_code');
             $table->timestamps();
         });
     }

@@ -10,7 +10,7 @@ class VerifyUser extends Model
 {
     use HasFactory;
 
-    protected $fillable=['user_id', 'token'];
+    protected $fillable=['user_id', 'otp_code'];
 
     public function user(){
         return $this->belongsTo(User::class);

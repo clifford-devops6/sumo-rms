@@ -4,6 +4,11 @@
         <meta head-key="description" name="description" content="This is the default description" />
 
     </Head>
+    <div>
+        <dropdown placement="bottom" text="Bottom">
+            Any content here
+        </dropdown>
+    </div>
     <!-- Buttons-->
     <div>
         <h2>Buttons</h2>
@@ -112,7 +117,7 @@
         </div>
         <div class="bg-white rounded-3xl shadow overflow-hidden">
            <div>
-              <img src="/images/image.jpg" alt="Card Image"/>
+              <img :src="'/images/card.jpg'" alt="Card Image"/>
            </div>
             <div class="py-5 px-5">
                 <div>
@@ -170,6 +175,7 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/inertia-vue3'
 import Editor from "@tinymce/tinymce-vue";
+import {Dropdown} from "flowbite-vue";
 
 defineProps({
     user:Object,
