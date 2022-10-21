@@ -55,7 +55,7 @@ class AdminPermissionController extends Controller
 
         $validated=$request->validate([
             'name'=>'required|string|max:25|unique:permissions',
-            'guard_name'=>'required|string|max:25|unique:permissions'
+            'guard_name'=>'required|string|max:25'
         ]);
 
         $role=Permission::create([

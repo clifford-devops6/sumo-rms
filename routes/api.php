@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\TenantApiController;
+use App\Http\Controllers\Api\TenantGuestController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,10 +19,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group([], function (){
-   Route::post('/sumorems/v1/register', [TenantApiController::class,'register']);
-   Route::post('/sumorems/v1/update/{id}', [TenantApiController::class,'update']);
-   Route::post('/sumorems/v1/login', [TenantApiController::class,'login']);
-   Route::post('/sumorems/v1/request/resendOTP/{id}', [TenantApiController::class,'verification']);//resend verification code
-    Route::post('/sumorems/v1/request/verifyUser/{id}', [TenantApiController::class,'verifyUser']);
+Route::group(['prefix'=>'/sumorems/v1'],function (){
+   Route::post('/register', [TenantApiController::class,'register']);
+   Route::post('/update/{id}', [TenantApiController::class,'update']);
+   Route::post('/login', [TenantApiController::class,'login']);
+   Route::post('/request/resendOTP/{id}', [TenantApiController::class,'verification']);//resend verification code
+    Route::post('/request/verifyUser/{id}', [TenantApiController::class,'verifyUser']);
 });
+
+//Tenant Guest and appointment booking Apis
+Route::group(['prefix'=>'/sumorems/v1/guest'],function (){
+    Route::get('/show/{id}',[TenantGuestController::class, 'showGuest']);
+    Route::post('/create/{id}',[TenantGuestController::class, 'createGuest']);
+    Route::patch('/update/{id}',[TenantGuestController::class, 'updateGuest']);
+    Route::delete('/destroy/{id}',[TenantGuestController::class, 'destroyGuest']);
+    Route::post('/appointment/create/{id}',[TenantGuestController::class, 'createAppointment']);
+    Route::get('/appointment/show/{id}',[TenantGuestController::class, 'showAppointment']);
+    Route::delete('/appointment/destroy/{id}',[TenantGuestController::class, 'destroyAppointment']);
+});
+

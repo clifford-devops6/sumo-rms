@@ -4,8 +4,19 @@
         <meta head-key="description" name="description" content="This is the default description" />
 
     </Head>
-
     <div>
+      <admin-navbar>
+          <template #header>
+              Admin Panel
+          </template>
+          <template #links>
+
+          </template>
+      </admin-navbar>
+    </div>
+    <div class="pt-16 px-3">
+
+        <div>
         <h2>Buttons</h2>
         <div class="inline-block mt-3">
             <button type="button" class="btn-success">Success</button>
@@ -165,12 +176,14 @@
 
 
     </div>
+    </div>
 </template>
 
 <script setup lang="ts">
 import { Head } from '@inertiajs/inertia-vue3'
 import Editor from "@tinymce/tinymce-vue";
 import {Dropdown} from "flowbite-vue";
+import AdminNavbar from "@/views/components/admin-navbar.vue";
 
 defineProps({
     user:Object,
