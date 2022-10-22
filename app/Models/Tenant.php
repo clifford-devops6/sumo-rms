@@ -28,4 +28,13 @@ class Tenant extends Authenticatable implements MustVerifyEmail
         'email_verified'
 
     ];
+
+
+    public function guests(){
+        return $this->hasMany(Guest::class);
+    }
+
+    public function appointments(){
+        return $this->hasMany(Appointment::class);
+    }
 }

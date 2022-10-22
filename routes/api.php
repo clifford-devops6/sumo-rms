@@ -31,9 +31,10 @@ Route::group(['prefix'=>'/sumorems/v1'],function (){
 Route::group(['prefix'=>'/sumorems/v1/guest'],function (){
     Route::get('/show/{id}',[TenantGuestController::class, 'showGuest']);
     Route::post('/create/{id}',[TenantGuestController::class, 'createGuest']);
-    Route::patch('/update/{id}',[TenantGuestController::class, 'updateGuest']);
-    Route::delete('/destroy/{id}',[TenantGuestController::class, 'destroyGuest']);
+    Route::patch('/update/{id}/{guest}',[TenantGuestController::class, 'updateGuest']);
+    Route::delete('/destroy/{id}/{guest}',[TenantGuestController::class, 'destroyGuest']);
     Route::post('/appointment/create/{id}',[TenantGuestController::class, 'createAppointment']);
+    Route::patch('/appointment/update/{id}',[TenantGuestController::class, 'updateAppointment']);
     Route::get('/appointment/show/{id}',[TenantGuestController::class, 'showAppointment']);
     Route::delete('/appointment/destroy/{id}',[TenantGuestController::class, 'destroyAppointment']);
 });
