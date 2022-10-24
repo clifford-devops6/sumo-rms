@@ -21,12 +21,14 @@ class Manager extends Authenticatable
         'last_name',
         'manager_id',
         'cellphone',
-        'email_verified'
+        'email_verified',
+        'status'
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
+
     ];
 
     protected $casts = [
@@ -43,5 +45,9 @@ class Manager extends Authenticatable
     {
 
         $this->notify(new CustomResetPassword($token));
+    }
+
+    public function company(){
+        return $this->hasOne(Company::class);
     }
 }

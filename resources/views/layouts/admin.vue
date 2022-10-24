@@ -2,7 +2,6 @@
 import { InertiaProgress } from '@inertiajs/progress'
 InertiaProgress.init()
 import {Link} from "@inertiajs/inertia-vue3";
-import { Sidebar } from 'flowbite-vue'
 </script>
 <template>
     <div class="relative min-h-screen">
@@ -83,7 +82,7 @@ import { Sidebar } from 'flowbite-vue'
                             <h5 class="font-semibold text-lg text-sky-800">Links</h5>
                             <ul>
                                 <li>
-                                    <Link href="#">
+                                    <Link href="/admin/users/managers">
                                         <div class="w-full rounded-md px-3 ">
                                             <p class="font-semibold hover:text-sky-800"><span class="mr-2 text-sky-800"><i class="far fa-angle-right"></i></span>Users</p>
                                         </div>

@@ -16,4 +16,8 @@ class Company extends Model
     public function location(){
         return $this->morphOne(Location::class,'location');
     }
+
+    public function manager(){
+        return $this->belongsTo(Manager::class);
+    }
 }

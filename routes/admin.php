@@ -7,6 +7,8 @@ use  App\Http\Controllers\Admin\AdminController;
 use  App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\Admin\AdminPermissionController;
+use App\Http\Controllers\admin\AdminUsersController;
+use App\Http\Controllers\Admin\AdminManagersController;
 
 
 Route::group(['middleware'=>['auth','verified_admin','role:Super-Admin']],function (){
@@ -15,5 +17,9 @@ Route::group(['middleware'=>['auth','verified_admin','role:Super-Admin']],functi
     Route::resource('/admin/dashboard',AdminController::class);
     Route::resource('/admin/roles-and-permissions/roles',AdminRoleController::class);
     Route::resource('/admin/roles-and-permissions/permission',AdminPermissionController::class);
+
+    //Users Controller
+
+    Route::resource('/admin/users/managers',AdminManagersController::class);
 
 });

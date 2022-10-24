@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('street_address');
             $table->integer('location_id');
-            $table->integer('location_type');
+            $table->string('location_type');
         });
     }
 
