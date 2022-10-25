@@ -1,30 +1,25 @@
 <template>
     <admin>
         <Head>
-            <title>Managers</title>
-            <meta head-key="description" name="description" content="This is the default description" />
+            <title>Admin</title>
+            <meta head-key="description" name="description" content="Super Admin users" />
         </Head>
         <div>
-            <admin-navbar>
-                <template #header>
-                    Managers
-                </template>
-            </admin-navbar>
+            <admin-navbar><template #header>Super Admins</template></admin-navbar>
         </div>
         <div class="pb-8">
             <div class="bg-sky-50 p-5 flex justify-between ">
                 <p>
                     <span class="text-sky-800"><i class="fas fa-info-circle"></i></span>
-                    Managers are the top level organizations users. They can create company files and
-                    modify accounts
+                    Super users in the application. Full control and access is provided to each Admin user
                 </p>
             </div>
 
             <users-table
-                title="Managers"
-                :users="managers"
-                :filters="managers"
-                link="/admin/users/managers"
+                title="Admins"
+                :users="users"
+                :filters="users"
+                link="/admin/users/admins"
             >
             </users-table>
 
@@ -46,7 +41,7 @@ import UsersTable from "@/views/components/users-table.vue";
 import UserSidebar from "@/views/components/admin/user-sidebar.vue";
 import AdminNavbar from "@/views/components/admin-navbar.vue";
 defineProps({
-    managers:Object,
+    users:Object,
     filters:Object
 })
 

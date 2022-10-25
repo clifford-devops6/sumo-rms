@@ -2,6 +2,7 @@
 import { InertiaProgress } from '@inertiajs/progress'
 InertiaProgress.init()
 import {Link} from "@inertiajs/inertia-vue3";
+import ResourceBlock from "@/views/components/resource-block.vue";
 </script>
 <template>
     <div class="relative min-h-screen">
@@ -119,12 +120,32 @@ import {Link} from "@inertiajs/inertia-vue3";
                 </aside>
             </div>
 
-            <div class="bg-white border-l w-full min-h-screen">
+            <div class="bg-white w-full min-h-screen pb-5">
 
                 <div>
                     <slot/>
                 </div>
 
+            </div>
+            <div class="w-full min-h-screen w-72 px-3">
+               <div class="fixed w-full">
+                   <div class="pt-12 ">
+                       <h6 class="font-bold">Quick links</h6>
+                       <hr class="mt-2">
+
+                   </div>
+                   <div class="">
+                       <slot name="sidebar"></slot>
+                   </div>
+               </div>
+
+            </div>
+        </div>
+        <div class="bg-sky-800 py-5 px-3">
+            <div class="">
+                <ul class="flex gap-2 text-white">
+                    <li><p>&copy; Rems Global 2022</p></li>
+                </ul>
             </div>
         </div>
     </div>

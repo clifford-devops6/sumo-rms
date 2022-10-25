@@ -23,7 +23,8 @@ class Caretaker extends Authenticatable
         'last_name',
         'caretaker_id',
         'cellphone',
-        'email_verified'
+        'email_verified',
+        'status'
     ];
 
     protected $hidden = [
@@ -46,5 +47,9 @@ class Caretaker extends Authenticatable
     {
 
         $this->notify(new CaretakePasswordNotification($token));
+    }
+
+    public function property(){
+        return $this->hasMany(Property::class);
     }
 }

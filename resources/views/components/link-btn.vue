@@ -1,7 +1,6 @@
 <template>
-<div class="py-1">
-    <Link :href="href" class="hover:text-sky-800 font-medium text-md"><slot></slot></Link>
-</div>
+    <Link :href="href"><slot></slot></Link>
+
 </template>
 
 <script setup lang="ts">
@@ -11,4 +10,6 @@ defineProps({
 })
 </script>
 
+<style scoped>
 
+</style>

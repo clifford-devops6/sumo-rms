@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Resources\CaretakerCollection;
+use App\Models\Caretaker;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class AdminUsersController extends Controller
+class AdminCaretakersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,22 +18,22 @@ class AdminUsersController extends Controller
     public function index()
     {
         //
-        $users=User::query()
+        $caretakers=Caretaker::query()
             ->when(request('search'),function ($query,$search){
                 $query->where('name','like', '%'.$search.'%');
             })
             ->paginate(10)->withQueryString()
-            ->through(fn($user)=>[
-                'id'=>$user->id,
-                'name'=>$user->name,
-                'last_name'=>$user->last_name,
-                'email'=>$user->email,
-                'cellphone'=>$user->cellphone,
-                'status'=>$user->status
+            ->through(fn($caretaker)=>[
+                'id'=>$caretaker->id,
+                'name'=>$caretaker->name,
+                'last_name'=>$caretaker->last_name,
+                'email'=>$caretaker->email,
+                'cellphone'=>$caretaker->cellphone,
+                'status'=>$caretaker->status
             ]);
         $filters=request()->only(['search']);
 
-        return inertia::render('admin.users.admins.index', compact('users','filters'));
+        return inertia::render('admin.users.caretakers.index', compact('caretakers','filters'));
     }
 
     /**
@@ -65,6 +66,9 @@ class AdminUsersController extends Controller
     public function show($id)
     {
         //
+
+        $caretaker=Caretaker::findOrFail($id);
+        return inertia::render('caretakers.show', compact('caretaker'));
     }
 
     /**
@@ -88,6 +92,13 @@ class AdminUsersController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $caretaker=Caretaker::findOrFail($id);
+
+        if ($caretaker->status){
+            $caretaker->update(['status'=>0]);
+        }else{
+            $caretaker->update(['status'=>1]);
+        }
     }
 
     /**

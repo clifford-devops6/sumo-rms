@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\Admin\AdminPermissionController;
 use App\Http\Controllers\admin\AdminUsersController;
 use App\Http\Controllers\Admin\AdminManagersController;
+use App\Http\Controllers\Admin\AdminCaretakersController;
 
 
 Route::group(['middleware'=>['auth','verified_admin','role:Super-Admin']],function (){
@@ -21,5 +22,7 @@ Route::group(['middleware'=>['auth','verified_admin','role:Super-Admin']],functi
     //Users Controller
 
     Route::resource('/admin/users/managers',AdminManagersController::class);
+    Route::resource('/admin/users/caretakers',AdminCaretakersController::class);
+    Route::resource('/admin/users/admins',AdminUsersController::class);
 
 });
