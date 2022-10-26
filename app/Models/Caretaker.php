@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 
+
 class Caretaker extends Authenticatable
 {
     use HasFactory,Notifiable, HasApiTokens, HasRoles, HasPermissions;
@@ -52,4 +53,6 @@ class Caretaker extends Authenticatable
     public function property(){
         return $this->hasMany(Property::class);
     }
+
+
 }

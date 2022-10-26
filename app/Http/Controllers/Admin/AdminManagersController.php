@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Manager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class AdminManagersController extends Controller
@@ -96,9 +97,21 @@ class AdminManagersController extends Controller
         $manager=Manager::findOrFail($id);
         if ($manager->status==1){
             $manager->update(['status'=>0]);
+            activity()
+                ->causedBy(Auth::user())
+                ->performedOn($manager)
+                ->useLog('updated')
+                ->log('Disabled ' .$manager->name. ' account');
         }else{
             $manager->update(['status'=>1]);
+            activity()
+                ->causedBy(Auth::user())
+                ->performedOn($manager)
+                ->useLog('updated')
+                ->log('Enabled ' .$manager->name. ' account');
         }
+
+
 
         return  redirect()->back()
             ->with('status','User successfully deactivated');

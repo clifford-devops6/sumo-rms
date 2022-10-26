@@ -1,4 +1,5 @@
-<template layout="admin">
+<template>
+    <admin>
     <div class="relative">
 
 
@@ -8,7 +9,6 @@
 </Head>
     <admin-navbar>
         <template #header>Roles</template>
-
 
     </admin-navbar>
     <div class="pt-14">
@@ -71,11 +71,7 @@
                         class="fal fa-ellipsis-v-alt"></i></span></td>
 
                 </tr>
-                <tr v-if="roles.data==null">
-                    <td colspan="4" class="py-3 px-4">
-                        No roles found!
-                    </td>
-                </tr>
+
 
                 </tbody>
 
@@ -98,6 +94,14 @@
         </div>
     </div>
     </div>
+    <template #sidebar>
+        <admin-nav-link href="/admin/roles-and-permissions/permission">
+            <p><span class="mr-2 text-sky-800"><i class="far fa-angle-right"></i></span>Permission</p>
+        </admin-nav-link>
+        <admin-nav-link href="/admin/roles-and-permissions/roles">
+            <p><span class="mr-2 text-sky-800"><i class="far fa-angle-right"></i></span>Roles</p>
+        </admin-nav-link>
+    </template>
     <!--- all modals-->
     <Teleport to="body">
         <!-- Put this part before </body> tag -->
@@ -139,6 +143,7 @@
             </div>
         </div>
     </Teleport>
+    </admin>
 </template>
 
 <script setup lang="ts">
@@ -151,6 +156,7 @@ import {Inertia} from "@inertiajs/inertia";
 import _ from "lodash"
 import AdminNavbar from "@/views/components/admin-navbar.vue";
 import AdminNavLink from "@/views/components/admin-nav-link.vue";
+import Admin from "@/views/layouts/admin.vue";
 
 
 let props=defineProps({
@@ -189,7 +195,7 @@ let submit=()=>{
 
 
 
-    //use watch
+    //composables watch
 }
 </script>
 

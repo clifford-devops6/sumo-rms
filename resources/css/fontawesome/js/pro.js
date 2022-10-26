@@ -3,7 +3,7 @@
  * License - https://fontawesome.com/license (Commercial License)
  */
 (function () {
-  'use strict';
+  'composables strict';
 
   function _typeof(obj) {
     if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -288,7 +288,7 @@
   /* BEGIN.FEATURE.AF */
 
   var fromJsDirectory = /\/js\/.*\.js.*/;
-  var manuallyConfigureMessage = 'Manually set config.fetchSvgFrom = "URL" or use <script data-fetch-svg-from="URL" ...> to explicitly configure.'; // TODO: figure out all of this error scenario handling for the fetchCustomSvg url as well.
+  var manuallyConfigureMessage = 'Manually set config.fetchSvgFrom = "URL" or composables <script data-fetch-svg-from="URL" ...> to explicitly configure.'; // TODO: figure out all of this error scenario handling for the fetchCustomSvg url as well.
 
   if (_config.autoFetchSvg && !_config.fetchSvgFrom && DOCUMENT && DOCUMENT.currentScript) {
     var src = DOCUMENT.currentScript.getAttribute('src');
@@ -521,7 +521,7 @@
     }
 
     if (this instanceof P === false) {
-      throw new TypeError('Failed to construct \'Promise\': Please use the \'new\' operator, this object constructor cannot be called as a function.');
+      throw new TypeError('Failed to construct \'Promise\': Please composables the \'new\' operator, this object constructor cannot be called as a function.');
     }
 
     this._then = [];

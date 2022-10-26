@@ -7,9 +7,9 @@ return [
         /*
          * When using the "HasPermissions" trait from this package, we need to know which
          * Eloquent model should be used to retrieve your permissions. Of course, it
-         * is often just the "Permission" model but you may use whatever you like.
+         * is often just the "Permission" model but you may composables whatever you like.
          *
-         * The model you want to use as a Permission model needs to implement the
+         * The model you want to composables as a Permission model needs to implement the
          * `Spatie\Permission\Contracts\Permission` contract.
          */
 
@@ -18,9 +18,9 @@ return [
         /*
          * When using the "HasRoles" trait from this package, we need to know which
          * Eloquent model should be used to retrieve your roles. Of course, it
-         * is often just the "Role" model but you may use whatever you like.
+         * is often just the "Role" model but you may composables whatever you like.
          *
-         * The model you want to use as a Role model needs to implement the
+         * The model you want to composables as a Role model needs to implement the
          * `Spatie\Permission\Contracts\Role` contract.
          */
 
@@ -89,7 +89,7 @@ return [
         'model_morph_key' => 'model_id',
 
         /*
-         * Change this if you want to use the teams feature and your related model's
+         * Change this if you want to composables the teams feature and your related model's
          * foreign key is other than `team_id`.
          */
 
@@ -151,9 +151,9 @@ return [
         'key' => 'spatie.permission.cache',
 
         /*
-         * You may optionally indicate a specific cache driver to use for permission and
+         * You may optionally indicate a specific cache driver to composables for permission and
          * role caching using any of the `store` drivers listed in the cache.php config
-         * file. Using 'default' here means to use the `default` set in cache.php.
+         * file. Using 'default' here means to composables the `default` set in cache.php.
          */
 
         'store' => 'default',

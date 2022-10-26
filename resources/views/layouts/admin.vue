@@ -92,21 +92,22 @@ import ResourceBlock from "@/views/components/resource-block.vue";
                                 <li>
                                     <Link href="/admin/roles-and-permissions/roles">
                                         <div class="w-full rounded-md px-3 ">
-                                            <p class="font-semibold hover:text-sky-800"><span class="mr-2 text-sky-800"><i class="far fa-angle-right"></i></span>Roles</p>
+                                            <p class="font-semibold hover:text-sky-800"><span class="mr-2 text-sky-800"><i class="far fa-angle-right"></i></span>Roles & Permissions</p>
                                         </div>
                                     </Link>
                                 </li>
-                                <li>
-                                    <Link href="/admin/roles-and-permissions/permission">
-                                        <div class="w-full rounded-md px-3 ">
-                                            <p class="font-semibold hover:text-sky-800"><span class="mr-2 text-sky-800"><i class="far fa-angle-right"></i></span>Permissions</p>
-                                        </div>
-                                    </Link>
-                                </li>
+
                                 <li>
                                     <Link href="#">
                                         <div class="w-full rounded-md px-3 ">
                                             <p class="font-semibold hover:text-sky-800"><span class="mr-2 text-sky-800"><i class="far fa-angle-right"></i></span>Properties</p>
+                                        </div>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/admin/activity-logs">
+                                        <div class="w-full rounded-md px-3 ">
+                                            <p class="font-semibold hover:text-sky-800"><span class="mr-2 text-sky-800"><i class="far fa-angle-right"></i></span>Activity Logs</p>
                                         </div>
                                     </Link>
                                 </li>

@@ -24,7 +24,7 @@
                 title="Managers"
                 :users="managers"
                 :filters="managers"
-                link="/admin/users/managers"
+                link="/admin/users/managers/"
             >
             </users-table>
 

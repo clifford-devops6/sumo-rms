@@ -22,7 +22,8 @@ class Landlord extends Authenticatable
         'last_name',
         'landlord_id',
         'cellphone',
-        'email_verified'
+        'email_verified',
+        'status'
     ];
 
     protected $hidden = [
@@ -45,4 +46,6 @@ class Landlord extends Authenticatable
 
         $this->notify(new LandlordPasswordNotification($token));
     }
+
+
 }

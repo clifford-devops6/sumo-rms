@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CaretakerCollection;
-use App\Models\Caretaker;
+use App\Models\Landlord;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class AdminCaretakersController extends Controller
+class AdminLandlordController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,22 +18,21 @@ class AdminCaretakersController extends Controller
     public function index()
     {
         //
-        $caretakers=Caretaker::query()
+        $landlords=Landlord::query()
             ->when(request('search'),function ($query,$search){
                 $query->where('name','like', '%'.$search.'%');
             })
             ->paginate(10)->withQueryString()
-            ->through(fn($caretaker)=>[
-                'id'=>$caretaker->id,
-                'name'=>$caretaker->name,
-                'last_name'=>$caretaker->last_name,
-                'email'=>$caretaker->email,
-                'cellphone'=>$caretaker->cellphone,
-                'status'=>$caretaker->status
+            ->through(fn($landlord)=>[
+                'id'=>$landlord->id,
+                'name'=>$landlord->name,
+                'last_name'=>$landlord->last_name,
+                'email'=>$landlord->email,
+                'cellphone'=>$landlord->cellphone,
+                'status'=>$landlord->status
             ]);
         $filters=request()->only(['search']);
-
-        return inertia::render('admin.users.caretakers.index', compact('caretakers','filters'));
+        return  inertia::render('admin.users.landlords.index', compact('landlords','filters'));
     }
 
     /**
@@ -67,9 +65,9 @@ class AdminCaretakersController extends Controller
     public function show($id)
     {
         //
+        $landlord=Landlord::findOrFail($id);
 
-        $caretaker=Caretaker::findOrFail($id);
-        return inertia::render('caretakers.show', compact('caretaker'));
+        return inertia::render('admin.users.landlords.show', compact('landlord'));
     }
 
     /**
@@ -93,23 +91,26 @@ class AdminCaretakersController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $caretaker=Caretaker::findOrFail($id);
 
-        if ($caretaker->status){
-            $caretaker->update(['status'=>0]);
+        $landlord=Landlord::findOrFail($id);
+        if ($landlord->status){
+            $landlord->update(['status'=>0]);
             activity()
                 ->causedBy(Auth::user())
-                ->performedOn($caretaker)
+                ->performedOn($landlord)
                 ->useLog('updated')
-                ->log('Disabled ' .$caretaker->name. ' account');
+                ->log('Disabled ' .$landlord->name. ' account');
         }else{
-            $caretaker->update(['status'=>1]);
+            $landlord->update(['status'=>1]);
             activity()
                 ->causedBy(Auth::user())
-                ->performedOn($caretaker)
+                ->performedOn($landlord)
                 ->useLog('updated')
-                ->log('Enabled ' .$caretaker->name. ' account');
+                ->log('Enabled ' .$landlord->name. ' account');
         }
+
+        return redirect()->back();
+
     }
 
     /**

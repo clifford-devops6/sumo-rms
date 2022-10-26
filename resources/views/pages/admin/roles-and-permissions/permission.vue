@@ -1,4 +1,5 @@
-<template layout="admin">
+<template>
+    <admin>
     <div class="relative">
 
 
@@ -93,6 +94,14 @@
             </div>
         </div>
     </div>
+        <template #sidebar>
+            <admin-nav-link href="/admin/roles-and-permissions/permission">
+                <p><span class="mr-2 text-sky-800"><i class="far fa-angle-right"></i></span>Permission</p>
+            </admin-nav-link>
+            <admin-nav-link href="/admin/roles-and-permissions/roles">
+                <p><span class="mr-2 text-sky-800"><i class="far fa-angle-right"></i></span>Roles</p>
+            </admin-nav-link>
+        </template>
 
     <!--- all modals-->
     <Teleport to="body">
@@ -135,6 +144,7 @@
             </div>
         </div>
     </Teleport>
+    </admin>
 </template>
 
 <script setup lang="ts">
@@ -146,6 +156,8 @@ import Swal from 'sweetalert2'
 import {Inertia} from "@inertiajs/inertia";
 import _ from "lodash"
 import AdminNavbar from "@/views/components/admin-navbar.vue";
+import Admin from "@/views/layouts/admin.vue";
+import AdminNavLink from "@/views/components/admin-nav-link.vue";
 
 
 
@@ -185,7 +197,7 @@ let submit=()=>{
 
 
 
-    //use watch
+    //composables watch
 }
 </script>
 

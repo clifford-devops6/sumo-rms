@@ -23,7 +23,7 @@
             title="Caretakers"
             :users="caretakers"
             :filters="filters"
-            link="/admin/users/caretakers"
+            link="/admin/users/caretakers/"
             >
             </users-table>
 

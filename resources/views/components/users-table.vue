@@ -1,5 +1,5 @@
 <template>
-    <div class="border overflow-hidden">
+    <div class="border">
         <!--table search and name-->
         <div class="flex justify-between px-3 py-3">
             <div>
@@ -56,19 +56,19 @@
                             class="fal fa-ellipsis-v-alt"></i></span></label>
                         <ul tabindex="0" class="dropdown-content   shadow-md bg-sky-50 rounded-md divide-y w-44">
                             <li class="text-start">
-                                <Link :href="'/admin/users/users/'+ user.id"
+                                <Link :href="link+user.id"
                                       method="get" as="button"
                                       class="font-semibold hover:text-sky-800 text-sm py-3 px-3">
                                     <span class="mr-1"><i class="fal fa-bookmark"></i></span>Details</Link>
                             </li>
                             <li class="text-start">
-                                <Link :href="'/admin/users/users/'+ user.id"
+                                <Link :href="link+user.id"
                                       method="patch" as="button"
                                       class="hover:text-sky-800 text-sm font-bold py-3 px-3" v-if="user.status">
                                     <span class="mr-1"><i class="fal fa-user-slash"></i></span>
                                     Disable
                                 </Link>
-                                <Link :href="'/admin/users/users/'+ user.id"
+                                <Link :href="link+user.id"
                                       method="patch" as="button"
                                       class="hover:text-sky-800 text-sm font-bold py-3 px-3" v-else>
                                     <span class="mr-1"><i class="fal fa-user-check"></i></span>

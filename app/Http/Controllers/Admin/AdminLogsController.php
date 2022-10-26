@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CaretakerCollection;
-use App\Models\Caretaker;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Spatie\Activitylog\Models\Activity;
 
-class AdminCaretakersController extends Controller
+class AdminLogsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,22 +17,27 @@ class AdminCaretakersController extends Controller
     public function index()
     {
         //
-        $caretakers=Caretaker::query()
+        $activities = Activity::query()
             ->when(request('search'),function ($query,$search){
-                $query->where('name','like', '%'.$search.'%');
-            })
+                $query->where('log_name','like', '%'.$search.'%');
+            })->orderBy('created_at','ASC')
             ->paginate(10)->withQueryString()
-            ->through(fn($caretaker)=>[
-                'id'=>$caretaker->id,
-                'name'=>$caretaker->name,
-                'last_name'=>$caretaker->last_name,
-                'email'=>$caretaker->email,
-                'cellphone'=>$caretaker->cellphone,
-                'status'=>$caretaker->status
-            ]);
-        $filters=request()->only(['search']);
+            ->through(fn($activity)=>[
+                'id'=>$activity->id,
+                'name'=>$activity->log_name,
+                'description'=>$activity->description,
+                'event'=>$activity->event,
+                'created_at'=>$activity->created_at,
+                'subject'=>$activity->subject->name,
+                'causer'=>$activity->causer->name,
 
-        return inertia::render('admin.users.caretakers.index', compact('caretakers','filters'));
+
+            ]);;
+
+          $filters=request()->only(['search']);
+
+
+        return  inertia::render('admin.activity-logs.index', compact('activities','filters'));
     }
 
     /**
@@ -67,9 +70,9 @@ class AdminCaretakersController extends Controller
     public function show($id)
     {
         //
+        $activity=Activity::findOrFail($id);
 
-        $caretaker=Caretaker::findOrFail($id);
-        return inertia::render('caretakers.show', compact('caretaker'));
+        dd($activity->subject);
     }
 
     /**
@@ -93,23 +96,6 @@ class AdminCaretakersController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $caretaker=Caretaker::findOrFail($id);
-
-        if ($caretaker->status){
-            $caretaker->update(['status'=>0]);
-            activity()
-                ->causedBy(Auth::user())
-                ->performedOn($caretaker)
-                ->useLog('updated')
-                ->log('Disabled ' .$caretaker->name. ' account');
-        }else{
-            $caretaker->update(['status'=>1]);
-            activity()
-                ->causedBy(Auth::user())
-                ->performedOn($caretaker)
-                ->useLog('updated')
-                ->log('Enabled ' .$caretaker->name. ' account');
-        }
     }
 
     /**

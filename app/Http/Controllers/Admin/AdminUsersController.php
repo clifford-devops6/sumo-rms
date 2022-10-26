@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class AdminUsersController extends Controller
@@ -65,6 +66,8 @@ class AdminUsersController extends Controller
     public function show($id)
     {
         //
+        $user=User::findOrFail($id);
+        return inertia::render('admin.users.admins.show', compact('user'));
     }
 
     /**
@@ -88,6 +91,27 @@ class AdminUsersController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        $user=User::findOrFail($id);
+
+        if ($user->status){
+            $user->update(['status'=>0]);
+            activity()
+                ->causedBy(Auth::user())
+                ->performedOn($user)
+                ->useLog('updated')
+                ->log('Disabled ' .$user->name. ' account');
+        }else{
+            $user->update(['status'=>1]);
+            activity()
+                ->causedBy(Auth::user())
+                ->performedOn($user)
+                ->useLog('updated')
+                ->log('Disabled ' .$user->name. ' account');
+        }
+
+        return  redirect()->back();
+
     }
 
     /**

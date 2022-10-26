@@ -71,7 +71,7 @@ return [
     | Testing
     |--------------------------------------------------------------------------
     | Depending on the way you are testing your application,
-    | you may or may not need to use the manifest. This option controls
+    | you may or may not need to composables the manifest. This option controls
     | the manifest should be used in the "testing" environment.
     | https://laravel-vite.dev/configuration/laravel-package.html#testing
     */
@@ -108,7 +108,7 @@ return [
     | Default configuration
     |--------------------------------------------------------------------------
     | Here you may specify which of the configurations above you wish
-    | to use as your default one.
+    | to composables as your default one.
     | https://laravel-vite.dev/configuration/laravel-package.html#default
     */
     'default' => env('VITE_DEFAULT_CONFIG', 'default'),

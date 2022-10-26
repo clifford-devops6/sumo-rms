@@ -44,7 +44,7 @@ class EmailVerificationNotification extends Notification
     {
         return (new MailMessage)
                     ->subject('Verify Email Address')
-                    ->line('Please use the OTP Code below to verify your account.')
+                    ->line('Please composables the OTP Code below to verify your account.')
                     ->line($this->otp)
                     ->line('If you did not create an account, no further action is required.');
     }

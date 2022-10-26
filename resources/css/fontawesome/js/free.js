@@ -3,7 +3,7 @@
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 (function () {
-  'use strict';
+  'composables strict';
 
   var _WINDOW = {};
   var _DOCUMENT = {};
@@ -584,7 +584,7 @@
 
 }());
 (function () {
-  'use strict';
+  'composables strict';
 
   var _WINDOW = {};
   var _DOCUMENT = {};
@@ -860,7 +860,7 @@
 
 }());
 (function () {
-  'use strict';
+  'composables strict';
 
   var _WINDOW = {};
   var _DOCUMENT = {};
@@ -1986,7 +1986,7 @@
 
 }());
 (function () {
-  'use strict';
+  'composables strict';
 
   function _typeof(obj) {
     if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -2464,7 +2464,7 @@
     }
 
     if (this instanceof P === false) {
-      throw new TypeError('Failed to construct \'Promise\': Please use the \'new\' operator, this object constructor cannot be called as a function.');
+      throw new TypeError('Failed to construct \'Promise\': Please composables the \'new\' operator, this object constructor cannot be called as a function.');
     }
 
     this._then = [];

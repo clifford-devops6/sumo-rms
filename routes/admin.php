@@ -10,6 +10,9 @@ use App\Http\Controllers\Admin\AdminPermissionController;
 use App\Http\Controllers\admin\AdminUsersController;
 use App\Http\Controllers\Admin\AdminManagersController;
 use App\Http\Controllers\Admin\AdminCaretakersController;
+use App\Http\Controllers\Admin\AdminTenantsController;
+use App\Http\Controllers\Admin\AdminLandlordController;
+use App\Http\Controllers\Admin\AdminLogsController;
 
 
 Route::group(['middleware'=>['auth','verified_admin','role:Super-Admin']],function (){
@@ -24,5 +27,9 @@ Route::group(['middleware'=>['auth','verified_admin','role:Super-Admin']],functi
     Route::resource('/admin/users/managers',AdminManagersController::class);
     Route::resource('/admin/users/caretakers',AdminCaretakersController::class);
     Route::resource('/admin/users/admins',AdminUsersController::class);
+    Route::resource('/admin/users/tenants',AdminTenantsController::class);
+    Route::resource('/admin/users/landlords',AdminLandlordController::class);
+
+    Route::resource('admin/activity-logs', AdminLogsController::class);
 
 });

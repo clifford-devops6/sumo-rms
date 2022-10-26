@@ -19,7 +19,7 @@
                 title="Admins"
                 :users="users"
                 :filters="users"
-                link="/admin/users/admins"
+                link="/admin/users/admins/"
             >
             </users-table>
 

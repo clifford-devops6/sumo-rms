@@ -25,7 +25,7 @@ class CaretakerPasswordReset extends Controller
         return inertia::render('/caretaker/auth/forgot-password');
     }
 
-    //store password reset token and email. use "caretaker" as password broker
+    //store password reset token and email. composables "caretaker" as password broker
     public function store(Request $request)
     {
 
