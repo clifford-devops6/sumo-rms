@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Spatie\Activitylog\Models\Activity;
 
@@ -16,11 +18,25 @@ class AdminLogsController extends Controller
      */
     public function index()
     {
-        //
+
+
         $activities = Activity::query()
             ->when(request('search'),function ($query,$search){
                 $query->where('log_name','like', '%'.$search.'%');
-            })->orderBy('created_at','ASC')
+            })
+            ->when(request('event'),function ($query,$event){
+
+                $query->where('event', $event);
+            })
+            ->when(request('from'),function ($query,$from){
+
+                $query->where('created_at','>=', Carbon::parse($from));
+            })
+            ->when(request('to'),function ($query,$to){
+
+                $query->where('created_at','<=', Carbon::parse($to));
+            })
+            ->orderBy('created_at','ASC')
             ->paginate(10)->withQueryString()
             ->through(fn($activity)=>[
                 'id'=>$activity->id,
@@ -34,10 +50,9 @@ class AdminLogsController extends Controller
 
             ]);;
 
-          $filters=request()->only(['search']);
+          $filters=request()->only(['search','from','to','event']);
 
-
-        return  inertia::render('admin.activity-logs.index', compact('activities','filters'));
+          return  inertia::render('admin.activity-logs.index', compact('activities','filters'));
     }
 
     /**
@@ -70,9 +85,10 @@ class AdminLogsController extends Controller
     public function show($id)
     {
         //
-        $activity=Activity::findOrFail($id);
+        $user=Auth::guard('tenant')->user();
+        $activity=Activity::findOrFail($id)->only('subject','causer');
 
-        dd($activity->subject);
+        return  inertia::render('admin.activity-logs.show', compact('activity'));
     }
 
     /**

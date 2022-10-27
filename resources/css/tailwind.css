@@ -33,3 +33,7 @@
 .sumo-label{
     @apply text-base font-medium text-gray-900
 }
+
+.small-select{
+    @apply p-1 w-full text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300 focus:ring-sky-500 focus:border-sky-500
+}

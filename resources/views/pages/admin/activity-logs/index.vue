@@ -4,7 +4,7 @@
     <admin-navbar><template #header>Activity Logs</template></admin-navbar>
     <div class="border">
         <!--table search and name-->
-        <div class="flex justify-between px-3 py-3">
+        <div class="flex justify-between px-3 py-2">
             <div>
                 <h6 class="font-bold">Activity Logs</h6>
             </div>
@@ -19,19 +19,55 @@
                                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                     </div>
-                    <input v-model="search" type="search" id="default-search"
+                    <input v-model="sort.search"  type="search" id="default-search"
                            class="block p-3 pl-10 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-sky-600 focus:border-sky-600"
                            placeholder="Search roles..." required>
 
                 </div>
             </div>
+
+
+        </div>
+        <div class="px-3 py-2">
+            <div class="self-center">
+                <h6 class="text-sm">SORT BY:</h6>
+            </div>
+            <div class="flex gap-3 w-full">
+                <div>
+                    <select  v-model="sort.event" required class="block p-1 w-36 text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300 focus:ring-sky-500 focus:border-sky-500">
+                        <option disabled  selected value="">All Events</option>
+                        <option value="created">Created</option>
+                        <option value="updated">Updated</option>
+                        <option value="deleted">Deleted</option>
+
+                    </select>
+                </div>
+                <div class="self-center">
+                    <h6>Date From:</h6>
+                </div>
+                <div>
+                    <input v-model="sort.from" type="date" class="block p-1 w-full text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300 focus:ring-sky-500 focus:border-sky-500">
+                </div>
+
+                <div class="self-center">
+                    <h6>To:</h6>
+                </div>
+                <div>
+                    <input v-model="sort.to" type="date" :min="sort.from"
+                           class="block p-1 w-full text-sm text-gray-900 bg-gray-50
+                           rounded-md border border-gray-300 focus:ring-sky-500 focus:border-sky-500">
+                </div>
+
+
+
+            </div>
         </div>
 
-        <table class="table-auto w-full mt-3 border-t">
+        <table class="table-auto w-full border-t">
             <thead>
             <tr class="bg-gray-100 h-14 text-sky-800">
                 <th class="text-start py-3 px-4">Id</th>
-                <th class="text-start py-3 px-4">Activity type</th>
+                <th class="text-start py-3 px-4">Description</th>
                 <th class="text-start py-3 px-4">Event</th>
                 <th class="text-start py-3 px-4">Causer</th>
                 <th class="text-start py-3 px-4">Subject</th>
@@ -59,6 +95,7 @@
                 </td>
 
             </tr>
+            <tr v-else class="py-3 px-4"><td colspan="7">No logs found!</td></tr>
 
 
 
@@ -84,6 +121,11 @@
 
         </div>
     </div>
+
+    <template #sidebar>
+        <h6 class="mt-5 font-medium">Logs by events</h6>
+
+    </template>
 </admin>
 </template>
 
@@ -92,21 +134,27 @@ import {Head} from "@inertiajs/inertia-vue3";
 import Admin from "@/views/layouts/admin.vue";
 import AdminNavbar from "@/views/components/admin-navbar.vue";
 import {Link} from "@inertiajs/inertia-vue3";
-import {defineProps, ref, watch} from "vue";
+import {reactive, ref, watch} from "vue";
 import {Inertia} from "@inertiajs/inertia";
-import _ from "lodash"
+import _ from "lodash";
 
 let props=defineProps({
     activities:Object,
     filters:Object
 })
+let sort=reactive({
+    search:props.filters.search,
+    event:props.filters.event,
+    from:props.filters.from,
+    to:props.filters.to
+})
 
-let search=ref(props.filters.search)
-watch(search, _.debounce(function (value) {
+watch(sort,_.debounce(()=>{
     Inertia.get('/admin/activity-logs',{
-        search:value
+      search:sort.search, from:sort.from, to:sort.to, event:sort.event
     }, {preserveState:true, replace:true});
-}, 300))
+},300))
+
 </script>
 
 <style scoped>

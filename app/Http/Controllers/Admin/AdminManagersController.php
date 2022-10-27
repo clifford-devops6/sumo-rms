@@ -100,14 +100,16 @@ class AdminManagersController extends Controller
             activity()
                 ->causedBy(Auth::user())
                 ->performedOn($manager)
-                ->useLog('updated')
+                ->useLog('managers')
+                ->event('updated')
                 ->log('Disabled ' .$manager->name. ' account');
         }else{
             $manager->update(['status'=>1]);
             activity()
                 ->causedBy(Auth::user())
                 ->performedOn($manager)
-                ->useLog('updated')
+                ->useLog('managers')
+                ->event('updated')
                 ->log('Enabled ' .$manager->name. ' account');
         }
 
