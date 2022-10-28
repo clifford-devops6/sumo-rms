@@ -29,6 +29,7 @@ class Landlord extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified'
     ];
 
     protected $casts = [

@@ -86,7 +86,8 @@ class AdminLogsController extends Controller
     {
         //
         $user=Auth::guard('tenant')->user();
-        $activity=Activity::findOrFail($id)->only('subject','causer');
+        $activity=Activity::findOrFail($id)
+            ->only('subject','causer','log_name','description','created_at');
 
         return  inertia::render('admin.activity-logs.show', compact('activity'));
     }
