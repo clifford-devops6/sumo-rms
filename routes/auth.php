@@ -130,3 +130,7 @@ Route::group(['middleware'=>['auth:landlord']], function (){
 });
 
 
+//Authentication routes
+
+
+
